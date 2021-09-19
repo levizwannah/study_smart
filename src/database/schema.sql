@@ -10,8 +10,6 @@ CREATE TABLE `user` (
   `firstname` varchar(255) ,
   `lastname` varchar(255) ,
   `email` varchar(255) not null,
-  `phone` varchar(20),
-  `account_status` enum("enabled", "disabled") not null,
   `profile_image` varchar(255),
   `user_type` enum ("rider", "driver", "admin"),
   `ev_code` int default 0,
@@ -49,13 +47,31 @@ CREATE TABLE `temporary_email` (
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
 );
 
+
 CREATE TABLE `task` (
  `task_id` bigint unsigned not null primary key auto_increment,
- `name` varchar(255) ,
+ `task_name` varchar(255) ,
  `deadline` date not null ,
- `type` enum('Assignment','project','Group Work') not null,
- `task_status` enum('not started', 'started', 'completed', 'submitted') default 'not started',
+ `num_of_question` smallint unsigned default 1,
+ `category_id` bigint unsigned not null,
+ `unit_id` bigint unsiged not null,
+ `task_status` enum('not_started', 'started', 'completed', 'submitted') default 'not_started',
  `created_on` datetime default current_timestamp,
  `updated_on` datetime default current_timestamp on update current_timestamp,
-)
+ FOREIGN KEY (`category_id`) REFERENCES `category`(`category_id`) on delete cascade,
+ FOREIGN KEY (`unit_id`) REFERENCES `unit`(`unit_id`) on delete cascade
+);
 
+CREATE TABLE `unit` (
+  `unit_id` bigint unsigned not null primary key auto_increment,
+  `unit_name` varchar(255) not null,
+  `created_on` datetime default current_timestamp,
+  `updated_on` datetime default current_timestamp on update current_timestamp
+); 
+
+CREATE TABLE `category` (
+  `category_id` bigint unsigned not null primary key auto_increment,
+  `category_name` varchar(255) not null,
+  `created_on` datetime default current_timestamp,
+  `updated_on` datetime default current_timestamp on update current_timestamp
+);

@@ -4,11 +4,7 @@
         public static $nameRegex = "/^[\w]+(\s?[\w\-_\'\.]+?\s*?)+?$/";
         public static $phoneRegex = "/^\+\d{12}$/"; 
         public static $acceptedImages = ".jpg, .png, .bmp, .gif, .webp";
-        const PRIME_NUMBER = 1879,
-              LAT = "latitude",
-              LONG = "longitude",
-              LAT_TO_METER = 111000,
-              LONG_TO_METER = 111000;
+        const PRIME_NUMBER = 1879;
         /**
          * checks names to ensure that they meet policy
          */
@@ -66,7 +62,7 @@
             /**
              * Uploads a images to the server
              */
-             public static function uploadImage(array $image, $save_name, $in_directory, $update = false, $last_saved_as = ""){
+             public static function uploadImage(array $image, $save_name, $in_directory){
                 $ext = pathinfo($image['name'], PATHINFO_EXTENSION);
                 $ext = strtolower($ext);
 
@@ -90,16 +86,9 @@
                 }
             
                 // quality is a value from 0 (worst) to 100 (best)
-                $name = $save_name."-".uniqid().".jpeg";
+                $name = $save_name.".jpeg";
                 if(imagejpeg($imageTmp, "./../storage/$in_directory/$name", 70)){
                     imagedestroy($imageTmp);
-
-                    if($update && $last_saved_as != ""){
-                        $oldImage = "./../storage/$in_directory/$last_saved_as";
-                        if(file_exists($oldImage)){
-                            unlink("$oldImage");
-                        }  
-                    }
                     
                     return $name;
                 }

@@ -13,40 +13,14 @@ class DbManager implements DatabaseInterface{
 	private $currentStatement;
 	private $lastQuery;
 
-	const USER_TABLE = "user",
-	      USER_ID = "`user`.`id`",
-
-		  SESSION_TABLE = "session",
-		  SESSION_ID = "`session`.`session_id`",
-
-		  TMP_EMAIL_TABLE = "temporary_email",
-		  TMP_EMAIL_ID = "`temporary_email`.`id`",
-
-		  TMP_PHONE_TABLE = "temporary_phone_number",
-		  TMP_PHONE_ID = "`temporary_phone_number`.`id`",	
-
-		  RESET_PASSWORD_TABLE = "reset_password",
-		  RESET_PASSWORD_ID = "`reset_password`.`id`",
-
-		  DRIVER_INFO_TABLE = "driver_information",
-		  DRIVER_INFO_ID = "`driver_information`.`driverId`",
-
-		  DRIVER_DOC_TABLE = "driver_document",
-		  DRIVER_DOC_ID = "`driver_document`.`driverId`",
-
-		  VEHICLE_TABLE = "vehicle",
-		  VEHICLE_ID = "`vehicle`.`vehicle_id`",
-
-		  VEHICLE_DOC_TABLE = "vehicle_document",
-		  VEHICLE_DOC_ID = "`vehicle_document`.`vehicleId`";
 
     /**
      * @param bool $options - to pass to the PDO connection
      */
     public function __construct($options = false){
-		$this->dbHost = "127.0.0.1"; //getenv('DB_HOST');
-        $this->dbPort = "3306"; //getenv('DB_PORT');
-        $this->dbName   = "study_smart_db"; //getenv('DB_DATABASE');
+		$this->dbHost = "127.0.0.1"; 
+        $this->dbPort = "3306";
+        $this->dbName   = "study_smart_db";
         $this->withOptions = $options;
 		//$this->currentStatement = null;
     }
@@ -57,8 +31,8 @@ class DbManager implements DatabaseInterface{
 	 * @return mixed
 	 */
 	public function connect() {
-			$user = "root";//getenv('DB_USERNAME');
-			$pass = "";//getenv('DB_PASSWORD');
+			$user = "root";
+			$pass = "";
 			$dsn = "mysql:host=$this->dbHost;port=$this->dbPort;dbname=$this->dbName";
 			$options = [];
 
@@ -89,10 +63,10 @@ class DbManager implements DatabaseInterface{
 	 * @param array $columns 
 	 * @param string $condition_string 
 	 * @param array $condition_values  
-	 *
+	 * @param bool $add_ticks - 
 	 * @return array|bool
 	 */
-	public function query($table, $columns, $condition_string, $condition_values, $add_ticks = true) {
+	public function query($table, $columns, $condition_string, $condition_values, $add_ticks = true, $fetch_all = false) {
 		$this->connect();
 
 		if($add_ticks === true){
@@ -104,7 +78,7 @@ class DbManager implements DatabaseInterface{
 
             $stmt = $this->dbConnection->prepare($sql);
             if($stmt->execute($condition_values)){
-                $result = ($this->fetchAll)? $stmt->fetchAll() : $stmt->fetch();
+                $result = ($this->fetchAll || $fetch_all)? $stmt->fetchAll() : $stmt->fetch();
                 $return = $result;
             }
             else{

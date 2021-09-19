@@ -11,8 +11,6 @@
                 $password,
                 $id,
                 $emailVerified,
-                $type,
-                $accountStatus,
                 $evCode,
                 $profileImage,
                 $sessionId;
@@ -45,10 +43,8 @@
                 $this->setEmail($userInfo['email']);
                 $this->setPassword($userInfo['user_password']);
                 $this->setEmailVerified($userInfo['email_verified']);
-                $this->setType($userInfo["user_type"]);
                 $this->setProfileImage($userInfo["profile_image"]);
                 $this->setEvCode($userInfo["ev_code"]);
-                $this->setAccountStatus($userInfo["account_status"]);
                 return true;
             }
             return false;
@@ -92,6 +88,14 @@
             if($this->password == null){
                 return Response::NPE(); //Null Password Error
             }
+
+            if($this->firstName == null){
+                return Response::makeResponse("NFNE", "First name is required");
+            }
+
+            if($this->lastName == null){
+                return Response::makeResponse("NLNE", "Last name is required");
+            }
     
             if(!Utility::checkEmail($this->email)){
                 return Response::UEE();
@@ -109,8 +113,8 @@
             $this->password = password_hash($this->password, PASSWORD_DEFAULT);
      
             $tableName = "user";
-            $column_specs = ["email","user_type", "account_status" , "user_password","profile_image"];
-            $values = [$this->email,"rider", "enabled" , $this->password, User::DEFAULT_AVATAR];
+            $column_specs = ["email", "firstname", "lastname", "user_password", "profile_image"];
+            $values = [$this->email, $this->firstName, $this->lastName, $this->password, User::DEFAULT_AVATAR];
 
             try{
                 $insertId = $dbManager->insert($tableName, $column_specs, $values);
@@ -122,8 +126,8 @@
                     //response
                     $response = json_encode([
                         "token" => "$this->id-$sessionToken",
-                        "firstname" => "",
-                        "lastname" => "",
+                        "firstname" => $this->firstName,
+                        "lastname" => $this->lastName,
                         "email"=>$this->email,
                         "profileImage" => User::DEFAULT_AVATAR,
                         "message" => "Successfully signed up"
@@ -203,11 +207,11 @@
             }
             
             $dbManager = new DbManager();
-            if($dbManager->update("session", "session_token = ?", [""], "userId = ?",[$this->id])){
-                return Response::OK();
+            if(!$dbManager->delete("session", "session_id = ?", [$this->sessionId])){
+                return Response::SQE();
             }
-
-            return Response::SQE();
+            
+            return Response::OK();
         }
 
         /**
@@ -330,72 +334,6 @@
             return Response::OK();
         }
 
-        public function confirmPhone($code){
-            if(empty($this->id) || $this->id == null){
-                return Response::NIE();
-            }
-
-            $dbManager = new DbManager();
-            $temporaryPhone = $dbManager->query("temporary_phone_number", ["phone", "pv_code"], "userId = ?", [$this->id]);
-
-            if($temporaryPhone === false){
-                return Response::makeResponse("NPNFE", "You have verified the phone number attached to this account");
-            }
-
-            if($temporaryPhone["pv_code"] != $code){
-                return Response::makeResponse("WCE", "You entered an invalid code");
-            }
-
-            if($dbManager->update("user", "phone = ?", [$temporaryPhone["phone"]], "id = ?", [$this->id]) === false){
-                return Response::SQE();
-            }
-
-            if($dbManager->getAffRowsCount() < 1){
-                return Response::UEO();   
-            }
-            
-            $dbManager->delete("temporary_phone_number", "userId = ?", [$this->id]);
-            return Response::OK();
-                     
-        }
-        
-        /**
-         * Can the user upgrade to driver and admin?
-         * This function checks that the minimum requirements are met.
-         * @return bool
-         */
-        public function canUpgrade(){
-            if(empty($this->firstName) ||
-               empty($this->lastName) ||
-               empty($this->phone) ||
-               empty($this->email) ||
-               empty($this->profileImage) ||
-               !$this->emailVerified ||
-               !file_exists("./../storage/profile_images/$this->profileImage")
-               ){
-                return false;
-            }
-
-            return true;
-        }
-
-        /**
-         * Admin resets a password
-         */
-        public function adminResetPassword(){
-            $randomPass = bin2hex(openssl_random_pseudo_bytes(9));
-            $randomPass = password_hash($randomPass, PASSWORD_DEFAULT);
-
-            $dbManager = new DbManager();
-            return $dbManager->update(DbManager::USER_TABLE, "user_password = ?", [$randomPass], DbManager::USER_ID ."= ?", [$this->id]);
-        }
-
-        public function changeAccountStatus($status){
-            $this->accountStatus = $status;
-            $dbManager = new DbManager();
-            return $dbManager->update(DbManager::USER_TABLE, "account_status = ?", [$this->accountStatus], DbManager::USER_ID ." = ?", [$this->id]);
-        }
-
         /**
          * Gets the updated user details from the database
          */
@@ -458,26 +396,6 @@
         public function setEmail($email)
         {
                         $this->email = $email;
-
-                        return $this;
-        }
-
-        /**
-         * Get the value of phone
-         */ 
-        public function getPhone()
-        {
-                        return $this->phone;
-        }
-
-        /**
-         * Set the value of phone
-         *
-         * @return  self
-         */ 
-        public function setPhone($phone)
-        {
-                        $this->phone = $phone;
 
                         return $this;
         }
@@ -622,25 +540,6 @@
                         return $this;
         }
 
-        /**
-         * Get the value of accountStatus
-         */ 
-        public function getAccountStatus()
-        {
-                        return $this->accountStatus;
-        }
-
-        /**
-         * Set the value of accountStatus
-         *
-         * @return  self
-         */ 
-        public function setAccountStatus($accountStatus)
-        {
-                        $this->accountStatus = $accountStatus;
-
-                        return $this;
-        }
     }
 
 ?>
