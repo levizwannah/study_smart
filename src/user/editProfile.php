@@ -11,6 +11,7 @@
     if(!$isLoggedIn){exit(Response::NLIE());}
 
     $user = new User();
+
     $user->loadUser($userId);
 
     $message = "";
@@ -95,29 +96,6 @@
         }
     }
 
-    $phone = $_POST['phone'];
-
-    if(!empty($phone) && $phone != $user->getPhone()){
-
-        if(!Utility::checkPhone($phone)){
-            exit(Response::UQPNE());
-        }
-
-        if(User::doesPhoneNumberExist($phone, $dbManager)){
-            exit(Response::PNEE());
-        }
-
-        $dbManager->delete("temporary_phone_number", "userId = ?", [$user->getId()]);
-
-        if($dbManager->insert("temporary_phone_number", ["userId, phone"], [$user->getId(), $phone]) != -1
-         && User::sendConfirmationSms($user->getId(), $phone, $dbManager)
-         ){
-            $also = $message == ""?"": 'also';
-            $message .= " We sent an sms to verify your new phone number $also. ";
-        }
-    }
-
-
     if(!(empty($updateSqlStr) || $dbManager->update("user", $updateSqlStr, $newValues, "id = ?", [$user->getId()]))){
         exit(Response::SQE());
     }
@@ -127,7 +105,6 @@
         "token" => "$userId-$token",
         "firstname" => $user->getFirstName(),
         "lastname" => $user->getLastName(),
-        "phone" => $user->getPhone(),
         "email" => $user->getEmail(),
         "profileImage" => User::PROFILE_IMG_PATH."/". $user->getProfileImage(),
         "message" => $message

@@ -3,11 +3,12 @@
     if($isLoggedIn){
         exit(Response::ALIE());
     }
-    require(__DIR__."/../includes/phpmailer.inc.php");
+
 
     //e = email test and s = signup
     $action = isset($_POST['action'])?$_POST['action']:"s";
     $email = isset($_POST['email'])?$_POST['email']:null;
+    $firstname = 
     $newUser = new User();
     $newUser->setEmail($email);
 
