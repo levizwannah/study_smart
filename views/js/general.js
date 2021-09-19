@@ -1,4 +1,7 @@
 
+var error = document.getElementById("error-div");
+var successDiv = document.getElementById("success-div");
+
 /**
  * 
  * @param {string} url - do add the ../src/ to the url, it will be added automatically 
@@ -8,7 +11,7 @@
  */
 async function makeRequest(url = '', formData, callback = null) {
     url = `../src/${url}`;
-    
+
     let user = {token: "nothing"};
 
     if(!url.match(/.*\/src\/signup.php$/g)){
@@ -35,3 +38,74 @@ async function makeRequest(url = '', formData, callback = null) {
 
     return response.json();
   }
+
+
+  function showError(data, error_div = null){
+    hideSuccess();
+    if(error_div){
+        error_div.style.opacity = "1";  
+        error_div.addEventListener('transitionend', ()=>{
+            error_div.innerHTML = data;
+        });
+
+        error_div.scrollIntoView({behavior: "smooth", block: "center"});
+        setTimeout(() => {
+            hideError(error_div);
+        }, 5000);
+        return;
+    }
+    error.style.opacity = "1";
+    error.addEventListener('transitionend', ()=>{
+        error.innerHTML = data;
+    });
+    viewError();
+    setTimeout(() => {
+        hideError();
+    }, 5000);
+}
+
+function hideError(error_div = null){
+    if(error_div){
+        error_div.style.opacity = "0";
+        error_div.addEventListener('transitionend', ()=>{
+            error_div.innerHTML = "";
+        });
+        
+        return;
+    } 
+    
+    error.style.opacity = "0";
+    error.addEventListener('transitionend', ()=>{
+        error.innerHTML = "";
+    });
+}
+
+function showSuccess(data)
+{
+    hideError();
+    successDiv.style.opacity = "1"; 
+    successDiv.addEventListener('transitionend', ()=>{
+        successDiv.innerHTML = data;
+    });
+    viewSuccess();
+    setTimeout(() => {
+        hideSuccess();
+    }, 5000);
+}
+ 
+function viewError(){
+    error.scrollIntoView({behavior: "smooth", block: "nearest"});
+}
+
+function viewSuccess(){
+    successDiv.scrollIntoView({behavior: "smooth", block: "nearest"});
+}
+
+function hideSuccess()
+{
+    successDiv.style.opacity = "0";
+    
+    successDiv.addEventListener('transitionend', ()=>{
+        successDiv.innerHTML = "";
+    });
+}
