@@ -9,6 +9,11 @@ function register(){
     if(password.value != confirmPassword.value){
         showError("Passwords do not match");
     }
+    let formData = new FormData();
+    formData.append("firstname", firstname.value);
+    formData.append("lastname", lastname.value);
+    formData.append("email", email.value);
+    formData.append("password", password.value);
 
-    makeRequest("")
+    makeRequest("signup.php", formData, checkResult);
 }
