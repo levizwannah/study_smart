@@ -8,7 +8,6 @@
         protected $firstName,
                 $lastName,
                 $email,
-                $phone,
                 $password,
                 $id,
                 $emailVerified,
@@ -45,7 +44,6 @@
                 $this->setLastName($userInfo['lastname']);
                 $this->setEmail($userInfo['email']);
                 $this->setPassword($userInfo['user_password']);
-                $this->setPhone($userInfo['phone']);
                 $this->setEmailVerified($userInfo['email_verified']);
                 $this->setType($userInfo["user_type"]);
                 $this->setProfileImage($userInfo["profile_image"]);
@@ -126,7 +124,6 @@
                         "token" => "$this->id-$sessionToken",
                         "firstname" => "",
                         "lastname" => "",
-                        "phone" => "",
                         "email"=>$this->email,
                         "profileImage" => User::DEFAULT_AVATAR,
                         "message" => "Successfully signed up"
@@ -150,7 +147,7 @@
     
             try{
                 $tableName = "user";
-                $columns = ["id", "firstname", "lastname","email", "phone","user_password", "profile_image"];
+                $columns = ["id", "firstname", "lastname","email","user_password", "profile_image"];
                 $values = [$this->email];
                 
                 $dbManager = new DbManager();
@@ -176,7 +173,6 @@
                                 "token" => "$userId-$sessionToken",
                                 "firstname" => $details["firstname"],
                                 "lastname" => $details["lastname"],
-                                "phone" => $details["phone"],
                                 "email" => $details["email"],
                                 "profileImage" => User::PROFILE_IMG_PATH."/". $details["profile_image"],
                                 "message" => "Successfully logged in"

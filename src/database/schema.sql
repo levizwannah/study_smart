@@ -49,3 +49,13 @@ CREATE TABLE `temporary_email` (
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
 );
 
+CREATE TABLE `task` (
+ `task_id` bigint unsigned not null primary key auto_increment,
+ `name` varchar(255) ,
+ `deadline` date not null ,
+ `type` enum('Assignment','project','Group Work') not null,
+ `task_status` enum('not started', 'started', 'completed', 'submitted') default 'not started',
+ `created_on` datetime default current_timestamp,
+ `updated_on` datetime default current_timestamp on update current_timestamp,
+)
+

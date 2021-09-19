@@ -46,7 +46,7 @@ class DbManager implements DatabaseInterface{
     public function __construct($options = false){
 		$this->dbHost = "127.0.0.1"; //getenv('DB_HOST');
         $this->dbPort = "3306"; //getenv('DB_PORT');
-        $this->dbName   = "leto_db"; //getenv('DB_DATABASE');
+        $this->dbName   = "study_smart_db"; //getenv('DB_DATABASE');
         $this->withOptions = $options;
 		//$this->currentStatement = null;
     }

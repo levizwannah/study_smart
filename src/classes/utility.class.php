@@ -19,15 +19,6 @@
             return false;
         }
 
-        /**
-         * Checks the phone number against the legal regular expression for phone numbers
-         */
-        public static function checkPhone($phoneNumber){
-            if(preg_match(self::$phoneRegex, $phoneNumber)){
-                return true;
-            }
-            return false;
-        }
       
          /**
           * Checks to verify that the email meets the requirement
