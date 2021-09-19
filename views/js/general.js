@@ -1,5 +1,14 @@
 
+/**
+ * 
+ * @param {string} url - do add the ../src/ to the url, it will be added automatically 
+ * @param {FormData} formData  - the formData to send
+ * @param {Function} callback - callback if needed
+ * @returns 
+ */
 async function makeRequest(url = '', formData, callback = null) {
+    url = `../src/${url}`;
+    
     let user = {token: "nothing"};
 
     if(!url.match(/.*\/src\/signup.php$/g)){
