@@ -17,3 +17,13 @@ function register(){
 
     makeRequest("signup.php", formData, checkResult);
 }
+
+function checkResult(response){
+    if(response.status != "OK"){
+        showError(response.message);
+        return;
+    }
+
+    window.localStorage.setItem("user", response.message);
+    location.href = "home.php";
+}

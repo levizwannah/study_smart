@@ -109,3 +109,7 @@ function hideSuccess()
         successDiv.innerHTML = "";
     });
 }
+
+function getFullStorageLink(link){
+    return `../storage/${link}`;
+}
