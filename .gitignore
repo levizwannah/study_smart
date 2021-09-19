@@ -6,6 +6,12 @@ bin-release/
 
 # Other files and folders
 .settings/
+vendor/
+.env
+composer.lock
+passwords.inc.php
+storage/*/*/*.jpeg
+storage/*/*.jpeg
 
 # Executables
 *.swf
