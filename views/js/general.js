@@ -9,14 +9,14 @@ var successDiv = document.getElementById("success-div");
  * @param {Function} callback - callback if needed
  * @returns 
  */
-async function makeRequest(url = '', formData, callback = null) {
-    url = `../src/${url}`;
+async function makeRequest(url = '', formData, callback = null, login=false) {
+    url = `../src/user/${url}`;
 
     let user = {token: "nothing"};
 
     if(!url.match(/.*\/src\/signup.php$/g)){
         user = window.localStorage.getItem("user");
-        if(!user){
+        if(!user && !login){ //to make a request during login
             location.href = "login.php";
         }
 
@@ -112,4 +112,11 @@ function hideSuccess()
 
 function getFullStorageLink(link){
     return `../storage/${link}`;
+}
+
+function logout() {
+    let response=makeRequest("logout.php",null);
+    if (response=="OK") {
+        localStorage.removeItem('user');
+    }
 }
