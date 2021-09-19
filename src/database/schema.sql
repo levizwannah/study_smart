@@ -53,6 +53,7 @@ CREATE TABLE `task` (
  `task_name` varchar(255) ,
  `deadline` date not null ,
  `num_of_question` smallint unsigned default 1,
+ `num_done` smallint unsigned default 0,
  `category_id` bigint unsigned not null,
  `unit_id` bigint unsiged not null,
  `task_status` enum('not_started', 'started', 'completed', 'submitted') default 'not_started',
