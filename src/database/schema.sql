@@ -47,6 +47,21 @@ CREATE TABLE `temporary_email` (
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
 );
 
+CREATE TABLE `unit` (
+  `unit_id` bigint unsigned not null primary key auto_increment,
+  `unit_name` varchar(255) not null,
+  `userId` bigint unsigned not null,
+  `created_on` datetime default current_timestamp,
+  `updated_on` datetime default current_timestamp on update current_timestamp,
+  FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
+); 
+
+CREATE TABLE `category` (
+  `category_id` bigint unsigned not null primary key auto_increment,
+  `category_name` varchar(255) not null,
+  `created_on` datetime default current_timestamp,
+  `updated_on` datetime default current_timestamp on update current_timestamp
+);
 
 CREATE TABLE `task` (
  `task_id` bigint unsigned not null primary key auto_increment,
@@ -65,18 +80,4 @@ CREATE TABLE `task` (
  FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
 );
 
-CREATE TABLE `unit` (
-  `unit_id` bigint unsigned not null primary key auto_increment,
-  `unit_name` varchar(255) not null,
-  `userId` bigint unsigned not null,
-  `created_on` datetime default current_timestamp,
-  `updated_on` datetime default current_timestamp on update current_timestamp,
-  FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
-); 
-
-CREATE TABLE `category` (
-  `category_id` bigint unsigned not null primary key auto_increment,
-  `category_name` varchar(255) not null,
-  `created_on` datetime default current_timestamp,
-  `updated_on` datetime default current_timestamp on update current_timestamp
-);
+INSERT INTO `category`(`category_name`) VALUES ('Assignments'), ('Projects'), ('Groupworks');
