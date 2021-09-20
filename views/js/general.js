@@ -1,7 +1,7 @@
 
 var error = document.getElementById("error-div");
 var successDiv = document.getElementById("success-div");
-
+var activeNav = `bg-gray-50 text-gray-800 border-indigo-500`;
 /**
  * 
  * @param {string} url - do add the ../src/ to the url, it will be added automatically 

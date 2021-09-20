@@ -4,6 +4,7 @@ var auFormSubBtn = document.getElementById("unit-form-submit-btn");
 var unitPlusBtn = document.getElementById("unit-plus-btn");
 var unitListHolder = document.getElementById("units-holder");
 
+document.getElementById("unit-nav-link").classList.add(activeNav);
 /**
  * Show add unit form
  */
