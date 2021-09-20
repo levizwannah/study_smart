@@ -26,6 +26,11 @@ spl_autoload_register(function($name){
  if(isset($_SERVER["HTTP_AUTH"])){
    $auth = $_SERVER["HTTP_AUTH"];
    $auth = preg_split("/-/", $auth);
+
+   if(count($auth) < 2){
+      $auth = [0, ""];
+   }
+   
    $id = $auth[0];
 
    $token = $auth[1];

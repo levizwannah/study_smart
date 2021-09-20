@@ -111,7 +111,7 @@ function hideSuccess()
 }
 
 function getFullStorageLink(link){
-    return `../storage/${link}`;
+    return `../src/storage/${link}`;
 }
 //logout method
 function logout() {
@@ -134,3 +134,13 @@ function buildFormData(data){
 
     return formData;
 }
+
+function setUpNav(){
+    let user = JSON.parse(localStorage.getItem("user"));
+
+    document.getElementById("nav-profile-image").src = getFullStorageLink(`profile_images/${user.profileImage}`);
+    document.getElementById("nav-user-full-name").innerHTML = `${user.firstname} ${user.lastname}`;
+
+}
+
+//setUpNav();

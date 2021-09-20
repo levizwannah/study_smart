@@ -13,7 +13,7 @@
 //Header
 //include_once "./components/header.php";
 //Sidebar
-  //include_once "./components/nav.php";
+//include_once "./components/nav.php";
 ?>
 
 <div id="container" class="w-4/5 mx-auto">

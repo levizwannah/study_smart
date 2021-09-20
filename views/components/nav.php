@@ -1,20 +1,7 @@
 
-<script>
-  let user = window.localStorage.getItem("user");
-
-  user = {
-    token: "",
-    firstName: "Levi",
-    lastName: "Zwannah",
-    profileImage: "pic.jpeg"
-  }
-</script>
-
-<nav class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800">
-    <div class="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
-      <div class="flex items-center justify-center h-10 border-b">
-        <div><i class="fas fa-bars"></i></div>
-      </div>
+<nav class="absolute top-0 left-0 min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800" style="left: 100%" id="nav-bar">
+    <div class="fixed flex flex-col w-64 bg-white h-full border-r">
+      
       <div class="overflow-y-auto overflow-x-hidden flex-grow">
         <ul class="flex flex-col py-4 space-y-1">
           <li class="px-5">
@@ -22,7 +9,7 @@
           </li>
           <!-- View Profile Picture-->
           <li class="lex items-center hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-b hover:border-indigo-500 p-6">
-             <img class="relative w-24 h-24 rounded-full border border-gray-100 shadow-sm" src="https://randomuser.me/api/portraits/women/81.jpg" alt="User Image" /> <span> Levi Zwannah </span>
+             <img id = "nav-profile-image" class="relative w-24 h-24 rounded-full border border-gray-100 shadow-sm" src="https://randomuser.me/api/portraits/women/81.jpg" alt="User Image" /> <span id="nav-user-full-name"> Levi Zwannah </span>
                 <!-- <span><i class="fas fa-camera"></i></span> -->
           </li>
           <!--Assignments-->
@@ -32,7 +19,7 @@
                 <i class="fas fa-book"></i>
               </span>
               <span class="ml-2 text-sm tracking-wide truncate">Assignments</span>
-              <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">New</span>
+              <!-- <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">New</span> -->
             </a>
           </li>
           <!--Projects-->
@@ -51,7 +38,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
               </span>
               <span class="ml-2 text-sm tracking-wide truncate">Groupwork</span>
-              <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">3</span>
+              <!-- <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">3</span> -->
             </a>
           </li>
           <!--User Profile-->
@@ -89,4 +76,7 @@
     </div>
   </nav>
 
-  <!--Including the general.js -->
+  <!--Including the notification.php -->
+  <?php
+    include(__DIR__."/notification.php");
+  ?>
