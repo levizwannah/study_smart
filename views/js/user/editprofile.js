@@ -18,7 +18,9 @@ function uploadImage(){
     }
 
     let formData = new FormData();
-    formData.append("profile-image", profileImageInput.files[0]);
+    let formData = buildFormData({
+        "profile-image": profileImageInput.files[0]
+    });
     makeRequest("user/editProfile.php", formData, loadImage);
 }
 
@@ -39,11 +41,11 @@ function loadImage(response){
 }
 
 function updateProfile(){
-    let formData = new FormData();
-    formData.append("first-name", firstname.value);
-    formData.append("last-name", lastname.value);
-    formData.append("email", email.value);
-
+    let formData = buildFormData({
+        "first-name": firstname.value,
+        "last-name": lastname.value,
+        "email": email.value
+    });
     makeRequest("user/editProfile.php", formData, updateUser);
 }
 
@@ -60,10 +62,11 @@ function updateUser(json){
 }
 
 function resetPassword(){
-    let formData = new FormData();
-    formData.append("old-password", oldPassword.value);
-    formData.append("new-password", newPassword.value);
-
+    let formData = buildFormData({
+        "old-password": oldPassword.value,
+        "new-password": newPassword.value
+    });
+    
     makeRequest("user/resetPassword.php", formData, (response) => {
         if(response.status != "OK"){
             showError(response.message);

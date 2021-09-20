@@ -41,8 +41,8 @@
             }
 
             $this->setName($taskInfo["task_name"]);
-            $this->setUnit(new Unit($taskInfo[Unit::UNIT_ID]));
-            $this->setCategory(new Category($taskInfo[Category::CATEGORY_ID]));
+            $this->setUnit(new Unit($taskInfo["unitId"]));
+            $this->setCategory(new Category($taskInfo["categoryId"]));
             $this->setDeadline($taskInfo["deadline"]);
             $this->setNumOfQuestions($taskInfo["num_of_questions"]);
             $this->setQuestionsDone($taskInfo["num_done"]);

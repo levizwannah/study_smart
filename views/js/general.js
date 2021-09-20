@@ -120,3 +120,17 @@ function logout() {
         localStorage.removeItem('user');
     }
 }
+
+/**
+ * 
+ * @param {object} data - an associative array for key: data 
+ */
+function buildFormData(data){
+    let formData = new FormData();
+
+    for (const key in data) {
+        formData.append(key, data[key]);
+    }
+
+    return formData;
+}

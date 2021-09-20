@@ -5,6 +5,7 @@ function login() {
     let formData= new FormData();
     formData.append(email);
     formData.append(password);
+    
     makeRequest("login.php",formData,loginCallBack);
 }
 function loginCallBack() {
