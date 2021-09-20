@@ -3,9 +3,11 @@ let deadline= document.getElementById("deadline");
 let numOfQuestions= document.getElementById("numOfQuestions");
 let categoryId= document.getElementById("categoryId");
 let unitId= document.getElementById("unitId");
+let userId= document.getElementById("unitId");
 
 function addTask() {
     let formData= new FormData();
+    formData.append("userId",userId);
     formData.append("taskName",taskName);
     formData.append("deadline",deadline);
     formData.append("numOfQuestions",numOfQuestions);

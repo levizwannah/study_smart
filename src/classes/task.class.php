@@ -53,24 +53,25 @@
         }
 
         /**
-         * Adds Task
+         * Adds a new Task
          */
         public function addTask(){
                 $dbManager= new DbManager();
                 $table= "task";
-                $columns= ["task_name","deadline","num_of_question","category_id","unit_id"];
-                $values = [$this->name,$this->deadline,$this->numOfQuestions,$this->category,$this->unit];
+                $columns= ["user_id","task_name","deadline","num_of_question","category_id","unit_id"];
+                $values = [$this->user_id, $this->name,$this->deadline,$this->numOfQuestions,$this->category,$this->unit];
                 $rowId= $dbManager->insert($table, $columns, $values);
                 if($rowId == -1){
                         return Response::SQE();
                 }
                 return Response::OK();
         }
-
+        /**
+         * Update existing task
+         */
         public function editTask(){
                 $dbManager= new DbManager();
                 $table= "task";
-                $columns= ["task_name","num_of_question","category_id","unit_id"];
                 $columns_string= "task_name=?, num_of_question=?, category_id=?, unit_id=?";
                 $values = [$this->name,$this->numOfQuestions,$this->category,$this->unit];
                 $condition_string= "task_id=?";
@@ -80,6 +81,22 @@
                         return Response::OK();      
                 }
                 return Response::SQE();
+        }
+        /**
+         * get progress status in percent
+         */
+        public function getProgressStatus()
+        {
+                $dbManager= new DbManager();
+                $columns= "num_of_question,num_done";
+                $condition_string= "task_id=?";
+                $condition_values= [$this->id];
+                $result=$dbManager->query(Task::TASK_TABLE, $columns, $condition_string, $condition_values);
+                if (!$result) {
+                        Response::makeResponse("DQE", "Annoying Error");
+                }
+                $progressStatus= ((int)$result['num_done']/(int)$result['num_of_question'])*100;
+                return Response::makeResponse("OK",$progressStatus);     
         }
         
          /* changes the status of tasks should be one of the constants
