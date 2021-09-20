@@ -15,7 +15,7 @@ function register(){
     formData.append("email", email.value);
     formData.append("password", password.value);
 
-    makeRequest("signup.php", formData, checkResult);
+    makeRequest("user/signup.php", formData, checkResult);
 }
 
 function checkResult(response){
