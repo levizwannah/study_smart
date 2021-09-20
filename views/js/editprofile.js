@@ -19,7 +19,7 @@ function uploadImage(){
 
     let formData = new FormData();
     formData.append("profile-image", profileImageInput.files[0]);
-    makeRequest("editProfile.php", formData, loadImage);
+    makeRequest("user/editProfile.php", formData, loadImage);
 }
 
 function loadImage(response){
@@ -44,7 +44,7 @@ function updateProfile(){
     formData.append("last-name", lastname.value);
     formData.append("email", email.value);
 
-    makeRequest("editProfile.php", formData, updateUser);
+    makeRequest("user/editProfile.php", formData, updateUser);
 }
 
 function updateUser(json){
@@ -64,7 +64,7 @@ function resetPassword(){
     formData.append("old-password", oldPassword.value);
     formData.append("new-password", newPassword.value);
 
-    makeRequest("resetPassword.php", formData, (response) => {
+    makeRequest("user/resetPassword.php", formData, (response) => {
         if(response.status != "OK"){
             showError(response.message);
             return;
