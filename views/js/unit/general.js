@@ -10,6 +10,7 @@ var unitListHolder = document.getElementById("units-holder");
 function showAUForm(){
     unitPlusBtn.style.display = "none";
     aUForm.style.display = "";
+    unitNameInput.focus();
 }
 
 /**
@@ -26,11 +27,9 @@ function hideAUForm(){
  * @param {Object} unit 
  */
  function buildUnit(unit){
-    let html = ` <div class="flex flex-row items-center justify-between p-2 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-gray-100 border-2 p-6 hover:shadow-2xl">
+    let html = ` <div id='unit-${unit.unitId}' class="flex flex-row items-center justify-between mt-2 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-gray-100 border-2 p-6 hover:shadow-2xl">
     <div class="flex-3 justify-self-start">
-        <div class="text-gray-600 text-sm">
-            ${unit.unitName}
-        </div>
+        <div id='name' class="text-gray-600 text-sm">${unit.unitName}</div>
     </div>
     <div class="flex justify-between items-center w-1/4">
         <i class="far fa-edit text-blue-500 block" onclick="updateUnit(${unit.unitId})"></i>

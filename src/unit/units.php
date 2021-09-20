@@ -17,11 +17,9 @@
         $unitName = $unitIdInfo["unit_name"];
         $unitId = $unitIdInfo[Unit::UNIT_ID];
 
-        $unitsHtml .= " <div class='flex flex-row items-center justify-between p-2 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-gray-100 border-2 p-6 hover:shadow-2xl'>
+        $unitsHtml .= " <div id='unit-$unitId' class='flex flex-row items-center justify-between mt-2 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-gray-100 border-2 p-6 hover:shadow-2xl'>
         <div class='flex-3 justify-self-start'>
-            <div class='text-gray-600 text-sm'>
-                $unitName
-            </div>
+            <div id='name' class='text-gray-600 text-sm'>$unitName</div>
         </div>
         <div class='flex justify-between items-center w-1/4'>
             <i class='far fa-edit text-blue-500 block' onclick = 'updateUnit($unitId)'></i>

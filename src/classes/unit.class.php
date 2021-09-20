@@ -49,7 +49,7 @@
 
             $dbManager = new DbManager();
 
-            return $dbManager->insert(Unit::UNIT_TABLE, ["name", User::USER_FOREIGN_KEY], [$this->name, $this->userId]);
+            return $dbManager->insert(Unit::UNIT_TABLE, ["unit_name", User::USER_FOREIGN_KEY], [$this->name, $this->userId]);
         }
 
         /**
@@ -80,7 +80,7 @@
                 return false;
             }
 
-            return (new DbManager())->update(Unit::UNIT_TABLE, "name = ?", [$this->name], Unit::UNIT_ID ." = ?", [$this->id]);
+            return (new DbManager())->update(Unit::UNIT_TABLE, "unit_name = ?", [$this->name], Unit::UNIT_ID ." = ?", [$this->id]);
         }
 
         public  function delete()
