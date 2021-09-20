@@ -5,16 +5,14 @@ function login() {
     let formData= new FormData();
     formData.append(email);
     formData.append(password);
-    
-    makeRequest("login.php",formData,loginCallBack);
+    makeRequest("user/login.php",formData,loginCallBack);
 }
-function loginCallBack() {
+function loginCallBack(json) {
     if(json.status != "OK"){
         showError(json.message);
         return;
     }
-    
-    showSuccess("successfully updated your profile");
+    showSuccess("successfully Logged In"); // Just for a time being, until we get the UI pages
     localStorage.setItem("user", json.message);
     return;
 }

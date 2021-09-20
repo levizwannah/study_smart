@@ -115,7 +115,7 @@ function getFullStorageLink(link){
 }
 //logout method
 function logout() {
-    let response=makeRequest("logout.php",null);
+    let response=makeRequest("user/logout.php",null);
     if (response=="OK") {
         localStorage.removeItem('user');
     }
