@@ -3,7 +3,7 @@ var addButton = document.getElementById("add-unit-btn");
 addButton.addEventListener("click", function(){
     auFormSubBtn = auFormSubBtn.cloneNode(true);
     auFormSubBtn.innerHTML = "Add";
-    
+
     auFormSubBtn.onclick = addUnit();
     showAUForm();
 });
@@ -28,5 +28,5 @@ function displayUnit(json){
 
     let unit = JSON.parse(json.message);
     showSuccess(unit.message);
-    document.getElementById("unit-holder").appendChild(buildUnit(unit));
+    document.getElementById("unit-holder").innerHTML += buildUnit(unit);
 }

@@ -5,6 +5,8 @@
  */
 
 function deleteUnit(unitId){
+    if(!confirm("Do you really want to remove this")) return;
+    
     let formData = buildFormData({"unit-id": unitId});
     makeRequest(`unit/delete.php`, formData, (unitId) => {
         removeUnit(unitId, json);

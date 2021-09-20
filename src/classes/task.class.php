@@ -117,6 +117,20 @@
         }
 
 
+        public function delete()
+        {
+                if(empty($this->id)){
+                        return false;
+                }
+
+                return (new DbManager())->delete(
+                        Task::TASK_TABLE,
+                        Task::TASK_ID . " = ?",
+                        [$this->id]
+                );
+        }
+
+
         /**
          * Get the value of id
          */ 

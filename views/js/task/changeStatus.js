@@ -24,11 +24,11 @@ function removeTask(taskId, json){
         return;
     }
 
-    showSuccess("Task moved successfully");
+    showSuccess(json.message);
     let task = document.getElementById(`task-${taskId}`);
     task.style.opacity = "0";
     task.addEventListener("transitionend", function(){
-        this.parentElement.remove();
+        this.remove();
     });
 }
 
