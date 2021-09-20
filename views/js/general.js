@@ -113,7 +113,7 @@ function hideSuccess()
 function getFullStorageLink(link){
     return `../storage/${link}`;
 }
-
+//logout method
 function logout() {
     let response=makeRequest("logout.php",null);
     if (response=="OK") {
