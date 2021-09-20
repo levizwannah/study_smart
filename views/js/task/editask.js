@@ -1,23 +1,24 @@
 let taskName= document.getElementById("taskName");
-let deadline= document.getElementById("deadline");
 let numOfQuestions= document.getElementById("numOfQuestions");
 let categoryId= document.getElementById("categoryId");
 let unitId= document.getElementById("unitId");
+let userId= document.getElementById("userId");
+let taskId= document.getElementById("taskId");//hypothesis
 
-function addTask() {
+function editTask() {
     let formData= new FormData();
+    formData.append("taskId",taskId);
     formData.append("taskName",taskName);
-    formData.append("deadline",deadline);
     formData.append("numOfQuestions",numOfQuestions);
     formData.append("categoryId",categoryId);
     formData.append("unitId",unitId);
-    makeRequest("task/addTask.php",formData,addTaskCallBack);
+    makeRequest("task/editTask.php",formData,editTaskCallBack);
 }
-function addTaskCallBack(json) {
+function editTaskCallBack(json) {
     if(json.status != "OK"){
         showError(json.message);
         return;
     }
-    showSuccess("Task successfully added"); 
+    showSuccess("Task edited successfully"); 
     return;
 }

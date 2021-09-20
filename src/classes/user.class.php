@@ -16,7 +16,8 @@
                 $sessionId;
 
         const   USER_TABLE = "user",
-                USER_ID = "`user`.`id`";
+                USER_ID = "`user`.`id`",
+                USER_FOREIGN_KEY = "userId";
 
         public function __construct($id = 0){
             if($id == 0){

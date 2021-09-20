@@ -11,7 +11,8 @@
              $updatedOn;
 
     const CATEGORY_TABLE = "category",
-          CATEGORY_ID = "category_id";
+          CATEGORY_ID = "category_id",
+          CAT_FOREIGN_KEY = "categoryId";
 
 
         public function __construct($id = 0)

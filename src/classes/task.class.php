@@ -9,6 +9,7 @@
               $name,
               $unit,
               $category,
+              $userId,
               $numOfQuestions,
               $questionsDone,
               $deadline,
@@ -18,6 +19,7 @@
 
       const TASK_TABLE = "task",
             TASK_ID = "task_id",
+            TASK_FOREIGN_KEY = "taskId",
             STATUS_NOT_STARTED = 0,
             STATUS_DOING = 1,
             STATUS_DONE = 2,
@@ -41,8 +43,9 @@
             }
 
             $this->setName($taskInfo["task_name"]);
-            $this->setUnit(new Unit($taskInfo[Unit::UNIT_ID]));
-            $this->setCategory(new Category($taskInfo[Category::CATEGORY_ID]));
+            $this->setUnit($taskInfo[Unit::UNIT_FOREIGN_KEY]);
+            $this->setCategory($taskInfo[Category::CAT_FOREIGN_KEY]);
+            $this->setUserId($taskInfo[User::USER_FOREIGN_KEY]);
             $this->setDeadline($taskInfo["deadline"]);
             $this->setNumOfQuestions($taskInfo["num_of_questions"]);
             $this->setQuestionsDone($taskInfo["num_done"]);
@@ -53,18 +56,52 @@
         }
 
         /**
-         * Adds Task
+         * Adds a new Task
          */
         public function addTask(){
                 $dbManager= new DbManager();
-                $table= "task";
-                $columns= ["task_name","deadline","num_of_question","category_id","unit_id"];
-                $values = [$this->name,$this->deadline,$this->numOfQuestions,$this->category,$this->unit];
-                $rowId= $dbManager->insert($table, $columns, $values);
+              
+                $columns= ["task_name","deadline","num_of_question",Category::CAT_FOREIGN_KEY,Unit::UNIT_FOREIGN_KEY, User::USER_FOREIGN_KEY];
+                $values = [$this->name,$this->deadline,$this->numOfQuestions,$this->category,$this->unit, $this->userId];
+
+                $rowId= $dbManager->insert(Task::TASK_TABLE, $columns, $values);
                 if($rowId == -1){
                         return Response::SQE();
                 }
                 return Response::OK();
+        }
+        /**
+         * Update existing task
+         */
+        public function editTask(){
+                $dbManager= new DbManager();
+             
+                $columns_string= "task_name=?, num_of_question=?, ". Category::CAT_FOREIGN_KEY ."= ?, ". Unit::UNIT_FOREIGN_KEY." =?";
+
+                $values = [$this->name,$this->numOfQuestions,$this->category,$this->unit];
+                $condition_string=  Task::TASK_ID ."=?";
+                $condition_values= [$this->id];
+                $rowId= $dbManager->update(Task::TASK_TABLE, $columns_string, $values, $condition_string, $condition_values);
+                if($rowId){
+                        return Response::OK();      
+                }
+                return Response::SQE();
+        }
+        /**
+         * get progress status in percent
+         */
+        public function getProgressStatus()
+        {
+                $dbManager= new DbManager();
+                $columns= "num_of_question,num_done";
+                $condition_string= "task_id=?";
+                $condition_values= [$this->id];
+                $result=$dbManager->query(Task::TASK_TABLE, $columns, $condition_string, $condition_values);
+                if (!$result) {
+                        Response::makeResponse("DQE", "Annoying Error");
+                }
+                $progressStatus= ((int)$result['num_done']/(int)$result['num_of_question'])*100;
+                return Response::makeResponse("OK",$progressStatus);     
         }
         
          /* changes the status of tasks should be one of the constants
@@ -77,6 +114,20 @@
                 }
 
                 return $dbManager->update(Task::TASK_TABLE, "task_status = ?", [Task::TASK_STATUSES[$newStatus % count(Task::TASK_STATUSES)]], Task::TASK_ID ." = ?", [$this->id]);
+        }
+
+
+        public function delete()
+        {
+                if(empty($this->id)){
+                        return false;
+                }
+
+                return (new DbManager())->delete(
+                        Task::TASK_TABLE,
+                        Task::TASK_ID . " = ?",
+                        [$this->id]
+                );
         }
 
 
@@ -278,6 +329,28 @@
                     $this->updatedOn = $updatedOn;
 
                     return $this;
+        }
+
+        
+
+        /**
+         * Get the value of userId
+         */ 
+        public function getUserId()
+        {
+                        return $this->userId;
+        }
+
+        /**
+         * Set the value of userId
+         *
+         * @return  self
+         */ 
+        public function setUserId($userId)
+        {
+                        $this->userId = $userId;
+
+                        return $this;
         }
   }
 
