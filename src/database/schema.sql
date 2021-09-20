@@ -54,13 +54,15 @@ CREATE TABLE `task` (
  `deadline` date not null ,
  `num_of_question` smallint unsigned default 1,
  `num_done` smallint unsigned default 0,
- `category_id` bigint unsigned not null,
- `unit_id` bigint unsiged not null,
+ `categoryId` bigint unsigned not null,
+ `unitId` bigint unsigned not null,
+ `userId` bigint unsigned not null,
  `task_status` enum('not_started', 'started', 'completed', 'submitted') default 'not_started',
  `created_on` datetime default current_timestamp,
  `updated_on` datetime default current_timestamp on update current_timestamp,
- FOREIGN KEY (`category_id`) REFERENCES `category`(`category_id`) on delete cascade,
- FOREIGN KEY (`unit_id`) REFERENCES `unit`(`unit_id`) on delete cascade
+ FOREIGN KEY (`categoryId`) REFERENCES `category`(`category_id`) on delete cascade,
+ FOREIGN KEY (`unitId`) REFERENCES `unit`(`unit_id`) on delete cascade,
+ FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
 );
 
 CREATE TABLE `unit` (
