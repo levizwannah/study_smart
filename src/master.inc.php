@@ -30,7 +30,7 @@ spl_autoload_register(function($name){
    if(count($auth) < 2){
       $auth = [0, ""];
    }
-   
+
    $id = $auth[0];
 
    $token = $auth[1];

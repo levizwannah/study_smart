@@ -1,18 +1,20 @@
-var addButton = document.getElementById("add-unit-btn");
 
-addButton.addEventListener("click", function(){
+
+unitPlusBtn.addEventListener("click", function(){
     auFormSubBtn = auFormSubBtn.cloneNode(true);
     auFormSubBtn.innerHTML = "Add";
 
-    auFormSubBtn.onclick = addUnit();
+    auFormSubBtn.addEventListener("click", addUnit);
     showAUForm();
 });
+
 /**
  * Adds a new unit
  * @param {string} unitName 
  */
-
 function addUnit(){
+    console.log(`Here I am`);
+    
     let unitName = unitNameInput.value;
     let formData = buildFormData({"unit-name": unitName});
     

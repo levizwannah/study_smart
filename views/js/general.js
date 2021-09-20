@@ -10,7 +10,7 @@ var successDiv = document.getElementById("success-div");
  * @returns 
  */
 async function makeRequest(url = '', formData, callback = null, login=false) {
-    url = `../src/user/${url}`;
+    url = `../src/${url}`;
 
     let user = {token: "nothing"};
 
@@ -27,16 +27,18 @@ async function makeRequest(url = '', formData, callback = null, login=false) {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': user.token
+        'auth': user.token
       },
       body: formData
     });
 
-    if(callback){
-        callback(response.json);
-    }
 
-    return response.json();
+    if(callback){
+        response.json().then(callback);
+        return;
+    }
+    
+    return await response.json();
   }
 
 

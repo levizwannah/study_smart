@@ -1,9 +1,4 @@
-var addButton = document.getElementById("add-unit-btn");
 
-addButton.addEventListener("click", function(){
-    auFormSubBtn.onclick = addUnit();
-    showAUForm();
-});
 
 function updateUnit(unitId){
     let unitName = document.getElementById(`unit-${unitId}`).querySelector('#name').innerHTML;
