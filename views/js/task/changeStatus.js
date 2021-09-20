@@ -1,3 +1,5 @@
+
+
 /**
  * 
  * @param {int} taskId - task id 
@@ -5,7 +7,7 @@
  * `[not_started, doing, done, submitted]` 
  */
 function changeTaskStatus(taskId, newStatus){
-    if(taskId < 1 || newStatus < 1){
+    if(taskId < 1 || newStatus < 0){
         return;
     }
     let formData = buildFormData({
@@ -30,5 +32,13 @@ function removeTask(taskId, json){
     task.addEventListener("transitionend", function(){
         this.remove();
     });
+}
+
+/**
+ * Task id to submit
+ * @param {int} taskId 
+ */
+function submitTask(taskId){
+    changeTaskStatus(taskId, 3);
 }
 
