@@ -56,7 +56,7 @@
         }
 
         /**
-         * Adds Task
+         * Adds a new Task
          */
         public function addTask(){
                 $dbManager= new DbManager();
@@ -70,7 +70,9 @@
                 }
                 return Response::OK();
         }
-
+        /**
+         * Update existing task
+         */
         public function editTask(){
                 $dbManager= new DbManager();
              
@@ -84,6 +86,22 @@
                         return Response::OK();      
                 }
                 return Response::SQE();
+        }
+        /**
+         * get progress status in percent
+         */
+        public function getProgressStatus()
+        {
+                $dbManager= new DbManager();
+                $columns= "num_of_question,num_done";
+                $condition_string= "task_id=?";
+                $condition_values= [$this->id];
+                $result=$dbManager->query(Task::TASK_TABLE, $columns, $condition_string, $condition_values);
+                if (!$result) {
+                        Response::makeResponse("DQE", "Annoying Error");
+                }
+                $progressStatus= ((int)$result['num_done']/(int)$result['num_of_question'])*100;
+                return Response::makeResponse("OK",$progressStatus);     
         }
         
          /* changes the status of tasks should be one of the constants

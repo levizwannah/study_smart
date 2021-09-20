@@ -8,8 +8,7 @@
  $categoryId = isset($_POST['categoryId'])? $_POST['categoryId']:null;
  $unitId = isset($_POST['unitId'])? $_POST['unitId']:null;
 
- $task = new Task();
- $task->setId($taskId);
+ $task = new Task($taskId);
  $task->setName($taskName);
  $task->setUnit($unitId);
  $task->setCategory($categoryId);
