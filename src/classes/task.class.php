@@ -47,6 +47,20 @@
         }
 
         /**
+         * Adds Task
+         */
+        public function addTask(){
+                $dbManager= new DbManager();
+                $table= "task";
+                $columns= ["task_name","deadline","num_of_question","category_id","unit_id"];
+                $values = [$this->name,$this->deadline,$this->numOfQuestions,$this->category,$this->unit];
+                $rowId= $dbManager->insert($table, $columns, $values);
+                if($rowId == -1){
+                        return Response::SQE();
+                }
+                return Response::OK();
+        }
+        /**
          * Get the value of id
          */ 
         public function getId()
