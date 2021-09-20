@@ -9,9 +9,15 @@
  $task = new Task($taskId);
 
  if(!$task->changeStatus($status)){
+
      exit(Response::UEO());
  }
 
- exit(Response::OK());
+ if(!$status == Task::STATUS_DONE){
+    exit(Response::OK());
+ }
+
+ //notify of 30 mins break here.
+
 
 ?>
