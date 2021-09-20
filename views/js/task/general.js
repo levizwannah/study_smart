@@ -4,7 +4,8 @@ let taskStatus = document.getElementById("task-status");
 let statusDiv = document.getElementById("select-status");
 let unitsList = document.getElementById("units-select");
 
-document.getElementById(`c-${category.value}`).classList.add(activeNav);
+setActiveNav(document.getElementById(`c-${category.value}`));
+
 const colorsClasses = ["bg-red-200", "bg-yellow-200", "bg-blue-200", "bg-green-200"];
 
 function changeStatusColor(){

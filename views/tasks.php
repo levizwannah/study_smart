@@ -34,7 +34,7 @@ include_once "./components/nav.php";
     </select>
 </div>
 
-<input type="hidden" id="category_id" value="<?php echo $categoryId ?>">
+<input type="hidden" id="category-id" value="<?php echo $categoryId ?>">
 
 <div class="w-full mt-5 overflow-auto">
 
@@ -159,6 +159,19 @@ include_once "./components/nav.php";
         <option value="3">Submitted</option>
     </select>
 </div>
-
+<script>
+    document.querySelector('#page-title').innerHTML = document.getElementById(`c-<?php echo $categoryId ?>`).querySelectorAll("span")[1].innerHTML;
+</script>
+<?php
+    include('components/scripts.inc.php');
+?>
+<footer>
+  <script src='js/task/general.js'></script>
+  <script src='js/task/addTask.js'></script>
+  <script src='js/task/editask.js'></script>
+  <script src='js/task/changestatus.js'></script>
+  <script src='js/task/getstatus.js'></script>
+  <script src='js/task/delete.js'></script>
+</footer>
 </body>
 </html>
