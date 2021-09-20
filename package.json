@@ -1,0 +1,23 @@
+{
+  "name": "study_smart",
+  "version": "1.0.0",
+  "description": "A system to help students organize tasks",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwind build views/css/style.css -o views/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/levizwannah/study_smart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/levizwannah/study_smart/issues"
+  },
+  "homepage": "https://github.com/levizwannah/study_smart#readme",
+  "dependencies": {
+    "tailwindcss": "^2.2.15"
+  }
+}
