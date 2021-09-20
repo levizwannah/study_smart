@@ -9,12 +9,31 @@
               $createdOn,
               $updatedOn;
 
+      const UNIT_TABLE = "unit",
+            UNIT_ID = "unit_id";
+
         public function __construct($id = 0)
         {
-            
+            if((int)$id > 0){
+                $this->setId($id);
+                $this->loadUnit($id);
+            }
         }
 
-        
+        public function loadUnit($id){
+            $dbManager = new DbManager($id);
+
+            $unitInfo = $dbManager->query(Unit::UNIT_TABLE, ["*"], Unit::UNIT_ID."= ?", [$id]);
+
+            if($unitInfo === false){
+                return false;
+            }
+
+            $this->setName($unitInfo["unit_name"]);
+            $this->setCreatedOn($unitInfo["created_on"]);
+            $this->setUpdatedOn($unitInfo["updated_on"]);
+            return true;
+        }
 
         /**
          * Get the value of id

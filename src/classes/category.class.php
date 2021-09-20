@@ -10,12 +10,36 @@
              $createdOn,
              $updatedOn;
 
+    const CATEGORY_TABLE = "category",
+          CATEGORY_ID = "category_id";
+
+
         public function __construct($id = 0)
         {
-
+            if((int)$id > 0){
+                $this->setId($id);
+                $this->loadCategory($id);
+            }
         }
 
 
+        /**
+         * Loads a category data from the database
+         */
+        public function loadCategory($id){
+            $dbManager = new DbManager();
+
+            $catInfo = $dbManager->query(Category::CATEGORY_TABLE, ["*"], Category::CATEGORY_ID. "= ?", [$id]);
+
+            if($catInfo === false){
+                return false;
+            }
+
+            $this->setName($catInfo["category_name"]);
+            $this->setCreatedOn($catInfo["created_on"]);
+            $this->setUpdatedOn($catInfo["updated_on"]);
+            return true;
+        }
 
         /**
          * Get the value of id

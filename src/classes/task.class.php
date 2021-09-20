@@ -16,11 +16,35 @@
               $createdOn,
               $updatedOn;
 
-        public function __construct($id = 0){
+      const TASK_TABLE = "task",
+            TASK_ID = "task_id";
 
+        public function __construct($id = 0){
+                if((int)$id > 0){
+                        $this->setId($id);
+                        $this->loadTask($id);
+                }
         }
 
-    
+        public function loadTask($id){
+            $dbManager = new DbManager();
+            $taskInfo = $dbManager->query(Task::TASK_TABLE, ["*"], Task::TASK_ID . "= ?", [$id]);
+
+            if($taskInfo === false){
+                    return false;
+            }
+
+            $this->setName($taskInfo["task_name"]);
+            $this->setUnit(new Unit($taskInfo[Unit::UNIT_ID]));
+            $this->setCategory(new Category($taskInfo[Category::CATEGORY_ID]));
+            $this->setDeadline($taskInfo["deadline"]);
+            $this->setNumOfQuestions($taskInfo["num_of_questions"]);
+            $this->setQuestionsDone($taskInfo["num_done"]);
+            $this->setStatus($taskInfo["task_status"]);
+            $this->setCreatedOn($taskInfo["created_on"]);
+            $this->setUpdatedOn($taskInfo["updated_on"]);
+            return true;
+        }
 
         /**
          * Get the value of id
