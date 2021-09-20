@@ -17,7 +17,13 @@
               $updatedOn;
 
       const TASK_TABLE = "task",
-            TASK_ID = "task_id";
+            TASK_ID = "task_id",
+            STATUS_NOT_STARTED = 0,
+            STATUS_DOING = 1,
+            STATUS_DONE = 2,
+            STATUS_SUBMITTED = 3;
+
+      const TASK_STATUSES = ["not_started", "doing", "done", "submitted"];
 
         public function __construct($id = 0){
                 if((int)$id > 0){
@@ -45,6 +51,34 @@
             $this->setUpdatedOn($taskInfo["updated_on"]);
             return true;
         }
+
+        /**
+         * Adds Task
+         */
+        public function addTask(){
+                $dbManager= new DbManager();
+                $table= "task";
+                $columns= ["task_name","deadline","num_of_question","category_id","unit_id"];
+                $values = [$this->name,$this->deadline,$this->numOfQuestions,$this->category,$this->unit];
+                $rowId= $dbManager->insert($table, $columns, $values);
+                if($rowId == -1){
+                        return Response::SQE();
+                }
+                return Response::OK();
+        }
+        
+         /* changes the status of tasks should be one of the constants
+         * @param int $newStatus - new status
+         */
+        public function changeStatus($newStatus){
+                $dbManager = new DbManager();
+                if(!isset($this->id)){
+                        return false;
+                }
+
+                return $dbManager->update(Task::TASK_TABLE, "task_status = ?", [Task::TASK_STATUSES[$newStatus % count(Task::TASK_STATUSES)]], Task::TASK_ID ." = ?", [$this->id]);
+        }
+
 
         /**
          * Get the value of id
