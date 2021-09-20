@@ -16,7 +16,7 @@
   //include_once "./components/nav.php";
 ?>
 
-<div id="container" class="w-4/5 mx-auto">
+<div class="w-4/5 mx-auto">
     <div class="flex flex-col sm:flex-row">
       <!-- Card View-->
       <div class="sm:w-1/4 p-2">
