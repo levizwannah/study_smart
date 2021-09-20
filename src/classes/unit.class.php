@@ -6,11 +6,13 @@
   class Unit{
       private $id,
               $name,
+              $userId,
               $createdOn,
               $updatedOn;
 
       const UNIT_TABLE = "unit",
-            UNIT_ID = "unit_id";
+            UNIT_ID = "unit_id",
+            UNIT_FOREIGN_KEY = "unitId";
 
         public function __construct($id = 0)
         {
@@ -30,6 +32,7 @@
             }
 
             $this->setName($unitInfo["unit_name"]);
+            $this->setUserId($unitInfo[User::USER_FOREIGN_KEY]);
             $this->setCreatedOn($unitInfo["created_on"]);
             $this->setUpdatedOn($unitInfo["updated_on"]);
             return true;
@@ -111,6 +114,28 @@
         public function setUpdatedOn($updatedOn)
         {
                     $this->updatedOn = $updatedOn;
+
+                    return $this;
+        }
+
+        
+
+        /**
+         * Get the value of userId
+         */ 
+        public function getUserId()
+        {
+                    return $this->userId;
+        }
+
+        /**
+         * Set the value of userId
+         *
+         * @return  self
+         */ 
+        public function setUserId($userId)
+        {
+                    $this->userId = $userId;
 
                     return $this;
         }

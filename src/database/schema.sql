@@ -68,8 +68,10 @@ CREATE TABLE `task` (
 CREATE TABLE `unit` (
   `unit_id` bigint unsigned not null primary key auto_increment,
   `unit_name` varchar(255) not null,
+  `userId` bigint unsigned not null,
   `created_on` datetime default current_timestamp,
-  `updated_on` datetime default current_timestamp on update current_timestamp
+  `updated_on` datetime default current_timestamp on update current_timestamp,
+  FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
 ); 
 
 CREATE TABLE `category` (

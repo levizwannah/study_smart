@@ -9,6 +9,7 @@
               $name,
               $unit,
               $category,
+              $userId,
               $numOfQuestions,
               $questionsDone,
               $deadline,
@@ -18,6 +19,7 @@
 
       const TASK_TABLE = "task",
             TASK_ID = "task_id",
+            TASK_FOREIGN_KEY = "taskId",
             STATUS_NOT_STARTED = 0,
             STATUS_DOING = 1,
             STATUS_DONE = 2,
@@ -41,8 +43,9 @@
             }
 
             $this->setName($taskInfo["task_name"]);
-            $this->setUnit(new Unit($taskInfo["unitId"]));
-            $this->setCategory(new Category($taskInfo["categoryId"]));
+            $this->setUnit($taskInfo[Unit::UNIT_FOREIGN_KEY]);
+            $this->setCategory($taskInfo[Category::CAT_FOREIGN_KEY]);
+            $this->setUserId($taskInfo[User::USER_FOREIGN_KEY]);
             $this->setDeadline($taskInfo["deadline"]);
             $this->setNumOfQuestions($taskInfo["num_of_questions"]);
             $this->setQuestionsDone($taskInfo["num_done"]);
@@ -57,10 +60,11 @@
          */
         public function addTask(){
                 $dbManager= new DbManager();
-                $table= "task";
-                $columns= ["task_name","deadline","num_of_question","category_id","unit_id"];
-                $values = [$this->name,$this->deadline,$this->numOfQuestions,$this->category,$this->unit];
-                $rowId= $dbManager->insert($table, $columns, $values);
+              
+                $columns= ["task_name","deadline","num_of_question",Category::CAT_FOREIGN_KEY,Unit::UNIT_FOREIGN_KEY, User::USER_FOREIGN_KEY];
+                $values = [$this->name,$this->deadline,$this->numOfQuestions,$this->category,$this->unit, $this->userId];
+
+                $rowId= $dbManager->insert(Task::TASK_TABLE, $columns, $values);
                 if($rowId == -1){
                         return Response::SQE();
                 }
@@ -69,13 +73,13 @@
 
         public function editTask(){
                 $dbManager= new DbManager();
-                $table= "task";
-                $columns= ["task_name","num_of_question","category_id","unit_id"];
-                $columns_string= "task_name=?, num_of_question=?, category_id=?, unit_id=?";
+             
+                $columns_string= "task_name=?, num_of_question=?, ". Category::CAT_FOREIGN_KEY ."= ?, ". Unit::UNIT_FOREIGN_KEY." =?";
+
                 $values = [$this->name,$this->numOfQuestions,$this->category,$this->unit];
-                $condition_string= "task_id=?";
+                $condition_string=  Task::TASK_ID ."=?";
                 $condition_values= [$this->id];
-                $rowId= $dbManager->update($table, $columns_string, $values, $condition_string, $condition_values);
+                $rowId= $dbManager->update(Task::TASK_TABLE, $columns_string, $values, $condition_string, $condition_values);
                 if($rowId){
                         return Response::OK();      
                 }
@@ -293,6 +297,28 @@
                     $this->updatedOn = $updatedOn;
 
                     return $this;
+        }
+
+        
+
+        /**
+         * Get the value of userId
+         */ 
+        public function getUserId()
+        {
+                        return $this->userId;
+        }
+
+        /**
+         * Set the value of userId
+         *
+         * @return  self
+         */ 
+        public function setUserId($userId)
+        {
+                        $this->userId = $userId;
+
+                        return $this;
         }
   }
 
