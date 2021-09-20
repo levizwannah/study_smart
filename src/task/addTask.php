@@ -1,11 +1,6 @@
 <?php
  //master is included
  require("master.inc.php");
- 
- //User must be logged in
- if(!$isLoggedIn){
-    exit(Response::NLIE());
- }
 
  $taskName = isset($_POST['taskName'])?$_POST['taskName']:null;
  $deadline = isset($_POST['deadline'])? $_POST['deadline']:null;
