@@ -66,6 +66,21 @@
                 }
                 return Response::OK();
         }
+
+        public function editTask(){
+                $dbManager= new DbManager();
+                $table= "task";
+                $columns= ["task_name","num_of_question","category_id","unit_id"];
+                $columns_string= "task_name=?, num_of_question=?, category_id=?, unit_id=?";
+                $values = [$this->name,$this->numOfQuestions,$this->category,$this->unit];
+                $condition_string= "task_id=?";
+                $condition_values= [$this->id];
+                $rowId= $dbManager->update($table, $columns_string, $values, $condition_string, $condition_values);
+                if($rowId){
+                        return Response::OK();      
+                }
+                return Response::SQE();
+        }
         
          /* changes the status of tasks should be one of the constants
          * @param int $newStatus - new status
