@@ -44,6 +44,9 @@ include_once "./components/nav.php";
         </div>
 
 </div>
+<script>
+    document.querySelector("#page-title").innerHTML = "Units"
+</script>
 <?php
     include("components/scripts.inc.php");
 ?>

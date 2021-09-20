@@ -143,4 +143,31 @@ function setUpNav(){
 
 }
 
-//setUpNav();
+const nav = document.querySelector('#main-nav');
+var navShown = false;
+const menuBars = document.getElementById("menu_bars");   
+
+window.addEventListener('click', hideNav);
+
+function hideNav(evt){
+    if(nav.contains(evt.target)){
+        nav.style.left = '0px';
+        navShown = true;
+        menuBars.classList.add("fa-times");
+        return;
+    }
+    
+    if((menuBars == evt.target || menuBars.contains(evt.target)) && !navShown){
+        nav.style.left = '0px';
+        menuBars.classList.add("fa-times");
+        navShown = true;
+        return true;
+    }
+    
+    nav.style.left = '-100%';
+    navShown = false;
+    menuBars.classList.remove("fa-times");
+    
+}
+
+setUpNav();
