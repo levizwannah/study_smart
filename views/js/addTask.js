@@ -11,7 +11,7 @@ function addTask() {
     formData.append("numOfQuestions",numOfQuestions);
     formData.append("categoryId",categoryId);
     formData.append("unitId",unitId);
-    makeRequest("addTask.php",formData,addTaskCallBack);
+    makeRequest("task/addTask.php",formData,addTaskCallBack);
 }
 function addTaskCallBack(json) {
     if(json.status != "OK"){
