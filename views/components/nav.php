@@ -1,4 +1,15 @@
 
+<script>
+  let user = window.localStorage.getItem("user");
+
+  user = {
+    token: "",
+    firstName: "Levi",
+    lastName: "Zwannah",
+    profileImage: "pic.jpeg"
+  }
+</script>
+
 <nav class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800">
     <div class="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
       <div class="flex items-center justify-center h-10 border-b">
@@ -7,20 +18,12 @@
       <div class="overflow-y-auto overflow-x-hidden flex-grow">
         <ul class="flex flex-col py-4 space-y-1">
           <li class="px-5">
-            <div class="flex flex-row items-center h-8">
-              <!-- <div class="text-sm font-light tracking-wide text-gray-500">Study Smart</div> -->
-            </div>
+
           </li>
           <!-- View Profile Picture-->
-          <li>
-            <a href="#" class="flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-b hover:border-indigo-500 pr-6 p-10">
-              <div class="inline-flex justify-center items-center m-8">
-                <img class="relative w-24 h-24 rounded-full border border-gray-100 shadow-sm" src="https://randomuser.me/api/portraits/women/81.jpg" alt="User Image" />
+          <li class="lex items-center hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-b hover:border-indigo-500 p-6">
+             <img class="relative w-24 h-24 rounded-full border border-gray-100 shadow-sm" src="https://randomuser.me/api/portraits/women/81.jpg" alt="User Image" /> <span> Levi Zwannah </span>
                 <!-- <span><i class="fas fa-camera"></i></span> -->
-              </div>
-             
-     
-            </a>
           </li>
           <!--Assignments-->
           <li>
@@ -85,3 +88,5 @@
       </div>
     </div>
   </nav>
+
+  <!--Including the general.js -->
