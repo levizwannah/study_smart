@@ -94,26 +94,6 @@
         ]);}
 
         /**
-         * Unqualified Phone number Error
-         * @return string
-         */
-        public static function UQPNE(){
-            return json_encode([
-            "status" => "UQPNE", 
-            "message" => "The phone number you entered is invalid"
-        ]);}
-
-        /**
-         * Phone Number Exist Error
-         * @return string
-         */
-        public static function PNEE(){
-            return json_encode([
-            "status" => "PNEE", 
-            "message" => "The phone number you entered is already attached to another account"
-        ]);}
-
-        /**
          * Uqualified Name Error
          * @return string
          */
