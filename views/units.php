@@ -17,7 +17,7 @@ include_once './components/nav.php';
 ?>
 <!--UNITS-->
 <div class='container flex-col w-full items-center justify-center p-6 pt-14' id='units-holder'>
-            <div class='flex flex-row items-center justify-between p-2 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-gray-100 border-2 p-6 hover:shadow-2xl'>
+            <!-- <div class='flex flex-row items-center justify-between p-2 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-gray-100 border-2 p-6 hover:shadow-2xl'>
                 <div class='flex-3 justify-self-start'>
                     <div class='text-gray-600 text-sm'>
                         Advanced Database
@@ -28,7 +28,7 @@ include_once './components/nav.php';
                     <i class='fas fa-trash-alt text-red-500 block'></i>
                 </div>
               
-            </div>  
+            </div>   -->
 
 </div>
 
