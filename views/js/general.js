@@ -122,7 +122,7 @@ function hideSuccess()
 }
 
 function getFullStorageLink(link){
-    return `../src/storage/${link}`;
+    return `../src/storage/${link}?t=${(new Date()).getTime()}`;
 }
 //logout method
 function logout() {
