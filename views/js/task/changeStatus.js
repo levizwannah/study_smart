@@ -18,7 +18,7 @@ function submit(taskId, numberOfQuestions){
  * @param {int} newStatus - new status index in the statuses array
  * `[not_started, doing, done, submitted]` 
  */
-function changeTaskStatus(taskId, newStatus, numDone){
+function changeTaskStatus(taskId, newStatus, numDone, shouldmove = true){
     if(taskId < 1 || newStatus < 0){
         return;
     }
@@ -29,10 +29,10 @@ function changeTaskStatus(taskId, newStatus, numDone){
     });
 
     makeRequest(`task/changeStatus.php`, formData, 
-    (json) => {removeTask(taskId, json)});
+    (json) => {removeTask(taskId, json, shouldmove)});
 }
 
-function removeTask(taskId, json){
+function removeTask(taskId, json, shouldmove){
 
     if(json.status != "OK"){
         showError(json.message);
@@ -40,6 +40,9 @@ function removeTask(taskId, json){
     }
 
     showSuccess(json.message);
+    if(!shouldmove){
+      return;
+    }
     let task = document.getElementById(`task-${taskId}`);
     task.style.opacity = "0";
     task.addEventListener("transitionend", function(){

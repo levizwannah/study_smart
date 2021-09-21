@@ -106,6 +106,9 @@ function listTaskCallback(json){
                 }
                 else if(totalChecked.length < checkboxes.length && taskStatus.value != 1){
                     changeTaskStatus(actuatId, 1, totalChecked.length);
+                }else
+                {
+                    changeTaskStatus(actuatId, taskStatus.value, totalChecked.length, false);
                 }
             });
         });
