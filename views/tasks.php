@@ -119,6 +119,7 @@ include_once "./components/nav.php";
                 <p class="font-medium">Date Due</p>
                 <p class="text-gray-600">24/05/2021</p>
             </div>
+            
 
             <!--Submit-->
             <!--Complete-->

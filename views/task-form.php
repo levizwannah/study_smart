@@ -19,7 +19,22 @@
     <!--No. of tasks-->
     <div class="flex flex-row space-x-2">
         <label class="font-medium" for="tasks">Number of tasks</label>
-        <input class="border rounded-md focus:outline-none"type="number" name="tasks" id="tasks">
+        <input class="border rounded-md focus:outline-none" type="number" name="tasks" id="tasks">
+    </div>
+    <!--Category-->
+    <div class="flex flex-row space-x-2">
+        <label class="font-medium" for="tasks">Category</label>
+        <select class="border rounded-md focus:outline-none" name="category" id="category">
+            <option value="Homework">Homework</option>
+            <option value="Homework">Assignment</option>
+            <option value="Homework">Project</option>
+            <option value="Homework">Takeaway CAT</option>
+        </select>
+    </div>
+    <!--No. of tasks-->
+    <div class="flex flex-row space-x-2">
+        <label class="font-medium" for="tasks">Number of tasks</label>
+        <input class="border rounded-md focus:outline-none" type="number" name="tasks" id="tasks">
     </div>
     <!--Date given-->
     <div class="flex flex-col">

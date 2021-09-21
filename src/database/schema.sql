@@ -66,6 +66,7 @@ CREATE TABLE `category` (
 CREATE TABLE `task` (
  `task_id` bigint unsigned not null primary key auto_increment,
  `task_name` varchar(255) ,
+ `given_date` date not null ,
  `deadline` date not null ,
  `num_of_question` smallint unsigned default 1,
  `num_done` smallint unsigned default 0,

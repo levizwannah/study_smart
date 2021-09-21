@@ -80,3 +80,19 @@ function listTaskCallback(json){
     }
 }
 
+/**
+ * Lists the units
+ */
+function listUnits() {
+    makeRequest(`task/units.php`, new FormData(), (json) =>{
+        if(json.status != "OK"){
+            showError(json.message);
+            return;
+        }
+
+        unitListHolder.innerHTML = json.message;
+        return;
+    });
+}
+
+
