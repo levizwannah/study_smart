@@ -6,11 +6,13 @@
 
     $status = isset($_POST["task-status"])? abs((int)$_POST["task-status"]): Task::STATUS_NOT_STARTED;
 
+    $unitId = isset($_POST["unit-id"])? (int)$_POST["unit-id"]: 0;
+
     $dbManager = new DbManager();
 
     //this will be inefficient for now
 
-    $allTasksIds = $dbManager->query(Task::TASK_TABLE, [Task::TASK_ID],  "task_status = ? and ". User::USER_FOREIGN_KEY. " = ? and ". Category::CAT_FOREIGN_KEY . " = ?", [Task::TASK_STATUSES[$status], $userId, $categoryId], true, true);
+    $allTasksIds = $dbManager->query(Task::TASK_TABLE, [Task::TASK_ID],  "task_status = ? and ". User::USER_FOREIGN_KEY. " = ? and ". Category::CAT_FOREIGN_KEY . " = ? and ". Unit::UNIT_FOREIGN_KEY . " =?", [Task::TASK_STATUSES[$status], $userId, $categoryId, $unitId], true, true);
 
     if($allTasksIds === false){
         exit(Response::SQE());
@@ -20,6 +22,7 @@
     foreach($allTasksIds as $taskIdInfo){
         $task = new Task($taskIdInfo[Task::TASK_ID]);
         $taskId = $task->getId();
+        
         $totalQuestions = $task->getNumOfQuestions();
         $totalDone = $task->getQuestionsDone();
         $given = Utility::returnDate(strtotime($task->getGivenDate()));
@@ -82,7 +85,7 @@
             <!--Check box-->
             <div class='block border rounded-md'>
                 <span class='text-gray-600'>Number of Tasks</span>
-                <div class='flex flex-wrap space-x-4 m-4 items-center justify-between'>
+                <div class='flex flex-wrap space-x-4 m-4 items-center justify-even'>
                     $checkboxes
                 </div>
             </div>

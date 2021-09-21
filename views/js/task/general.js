@@ -6,6 +6,8 @@ let unitsList = document.getElementById("units-select");
 let showList = document.getElementById("show-units-list");
 let selectedUnitName = document.getElementById("selected-unit-name");
 let showAddTaskFormBtn;
+let selectedUnitId = 0;
+
 
 setActiveNav(document.getElementById(`c-${category.value}`));
 
@@ -26,9 +28,14 @@ function changeStatusColor(){
  * @param {int} status 
  */
 function listTasks(){
+    if(selectedUnitId == 0){
+        return;
+    }
+
     let formData = buildFormData({
         "category-id": category.value,
-        "task-status": taskStatus.value
+        "task-status": taskStatus.value,
+        "unit-id": selectedUnitId
     });
 
     makeRequest(`task/tasks.php`, formData, listTaskCallback);
@@ -47,19 +54,19 @@ function listTaskCallback(json){
     
     showAddTaskFormBtn = document.getElementById('show-add-task-form');
     showAddTaskFormBtn.onclick = ()=>{
-        location.href("task-form.php");
+        location.href = "task-form.php";
     }
-    
+
     //updating the percentages to appear on the ui
     let allTasks = taskHolder.children;
     if(allTasks.length == 1) return; //only the plus sign is on the screen
 
     for(i = 0; i < (allTasks.length - 1); i++){
         let task = allTasks[i];
-        let actuatId = task.id.split("-");
+        let actuatId = task.id.split("-")[1];
         let tQuestions = task.querySelector(`#total-questions-t-${actuatId}`);
         let tCompleted = task.querySelector(`#total-completed-t-${actuatId}`);
-        let ratio = Number(tCompleted)/Number(tQuestions);
+        let ratio = Number(tCompleted.value)/Number(tQuestions.value);
         let percentage = ratio * 100;
         let percentText = `${percentage}%`;
 
@@ -67,7 +74,8 @@ function listTaskCallback(json){
         let maxWidth = pRHolder.parentElement.clientWidth;
 
         pRHolder.style.width = `${Math.ceil(ratio * maxWidth)}px`;
-        task.querySelector(`#percent-t-${actuatId}`).innerHTML = percentText;
+        let percentHtml = task.querySelector(`#percent-t-${actuatId}`);
+        percentHtml.innerHTML = percentText;
 
         let checkboxes = task.querySelectorAll(`input[type=checkbox]`);
         checkboxes.forEach(checkbox => {
@@ -76,14 +84,21 @@ function listTaskCallback(json){
                     return ch.checked;
                 });
 
-                if(totalChecked.length == checkboxes.length && category.value != 2){
-                    changeTaskStatus(actuatId, 2);
+                ratio = Number(totalChecked.length)/Number(tQuestions.value);
+                percentage = ratio * 100;
+                let percentText = `${percentage}%`;
+
+                percentHtml.innerHTML = percentText;
+                pRHolder.style.width = `${Math.ceil(ratio * maxWidth)}px`;
+
+                if(totalChecked.length == checkboxes.length && taskStatus.value != 2){
+                    changeTaskStatus(actuatId, 2, totalChecked.length);
                 }
-                else if(totalChecked.length == 0 && category.value != 0){
-                    changeTaskStatus(actuatId, 0);
+                else if(totalChecked.length == 0 && taskStatus.value != 0){
+                    changeTaskStatus(actuatId, 0, totalChecked.length);
                 }
-                else if(totalChecked.length < checkboxes.length && category.value != 1){
-                    changeTaskStatus(actuatId, 1);
+                else if(totalChecked.length < checkboxes.length && taskStatus.value != 1){
+                    changeTaskStatus(actuatId, 1, totalChecked.length);
                 }
             });
         });
@@ -121,6 +136,7 @@ async function populateUnitsList(unitSelectElement = unitsList, value = null){
     unitSelectElement.innerHTML = json.message;
     if(value){
         unitSelectElement.value = value;
+        selectedUnitId = value;
     }
 
     return true;
@@ -147,6 +163,8 @@ populateUnitsList(unitsList, localStorage.getItem("selectedUnit")).then((boolean
 //setting the units list on selected listener
 unitsList.addEventListener("change", function(){
     localStorage.setItem("selectedUnit", `${unitsList.value}`);
+    selectedUnitId = unitsList.value;
+
     selectedUnitName.innerHTML = unitsList.options[unitsList.options.selectedIndex].innerHTML;
     listTasks();
     showList.click();
@@ -171,6 +189,7 @@ showList.addEventListener("click", function(){
 
     unitsList.parentElement.style.display = "none";
 });
+
 
 
 

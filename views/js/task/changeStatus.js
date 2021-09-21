@@ -6,13 +6,14 @@
  * @param {int} newStatus - new status index in the statuses array
  * `[not_started, doing, done, submitted]` 
  */
-function changeTaskStatus(taskId, newStatus){
+function changeTaskStatus(taskId, newStatus, numDone){
     if(taskId < 1 || newStatus < 0){
         return;
     }
     let formData = buildFormData({
         "task-id": taskId,
-        "task-status": newStatus
+        "task-status": newStatus,
+        "num-done": numDone
     });
 
     makeRequest(`task/changeStatus.php`, formData, 

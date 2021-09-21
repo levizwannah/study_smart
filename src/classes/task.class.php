@@ -26,7 +26,7 @@
             STATUS_DONE = 2,
             STATUS_SUBMITTED = 3;
 
-      const TASK_STATUSES = ["not_started", "doing", "done", "submitted"];
+      const TASK_STATUSES = ["not_started", "started", "completed", "submitted"];
 
         public function __construct($id = 0){
                 if((int)$id > 0){
@@ -48,7 +48,7 @@
             $this->setCategory($taskInfo[Category::CAT_FOREIGN_KEY]);
             $this->setUserId($taskInfo[User::USER_FOREIGN_KEY]);
             $this->setDeadline($taskInfo["deadline"]);
-            $this->setGivenDate($taskInfo["givenDate"]);
+            $this->setGivenDate($taskInfo["given_date"]);
             $this->setNumOfQuestions($taskInfo["num_of_questions"]);
             $this->setQuestionsDone($taskInfo["num_done"]);
             $this->setStatus($taskInfo["task_status"]);
@@ -63,7 +63,7 @@
         public function addTask(){
                 $dbManager= new DbManager();
               
-                $columns= ["task_name","deadline","given_date","num_of_question",Category::CAT_FOREIGN_KEY,Unit::UNIT_FOREIGN_KEY, User::USER_FOREIGN_KEY];
+                $columns= ["task_name","deadline","given_date","num_of_questions",Category::CAT_FOREIGN_KEY,Unit::UNIT_FOREIGN_KEY, User::USER_FOREIGN_KEY];
                 $values = [$this->name,$this->deadline,$this->numOfQuestions,$this->category,$this->unit, $this->userId];
 
                 $rowId= $dbManager->insert(Task::TASK_TABLE, $columns, $values);
@@ -74,7 +74,7 @@
         public function editTask(){
                 $dbManager= new DbManager();
              
-                $columns_string= "task_name=?, num_of_question=?, ". Category::CAT_FOREIGN_KEY ."= ?, ". Unit::UNIT_FOREIGN_KEY." =?";
+                $columns_string= "task_name=?, num_of_questions=?, ". Category::CAT_FOREIGN_KEY ."= ?, ". Unit::UNIT_FOREIGN_KEY." =?";
 
                 $values = [$this->name,$this->numOfQuestions,$this->category,$this->unit];
                 $condition_string=  Task::TASK_ID ."=?";
@@ -91,14 +91,14 @@
         public function getProgressStatus()
         {
                 $dbManager= new DbManager();
-                $columns= "num_of_question,num_done";
+                $columns= "num_of_questions,num_done";
                 $condition_string= "task_id=?";
                 $condition_values= [$this->id];
                 $result=$dbManager->query(Task::TASK_TABLE, $columns, $condition_string, $condition_values);
-                if (!$result) {
+                if ($result === false) {
                         Response::makeResponse("DQE", "Annoying Error");
                 }
-                $progressStatus= ((int)$result['num_done']/(int)$result['num_of_question'])*100;
+                $progressStatus= ((int)$result['num_done']/(int)$result['num_of_questions'])*100;
                 return Response::makeResponse("OK",$progressStatus);     
         }
         
@@ -111,7 +111,7 @@
                         return false;
                 }
 
-                return $dbManager->update(Task::TASK_TABLE, "task_status = ?", [Task::TASK_STATUSES[$newStatus % count(Task::TASK_STATUSES)]], Task::TASK_ID ." = ?", [$this->id]);
+                return $dbManager->update(Task::TASK_TABLE, "task_status = ?, num_done = ?", [Task::TASK_STATUSES[$newStatus % count(Task::TASK_STATUSES)], $this->questionsDone], Task::TASK_ID ." = ?", [$this->id]);
         }
 
 
@@ -274,7 +274,7 @@
          */ 
         public function getGivenDate()
         {
-                return $this->id;
+                return $this->givenDate;
         }
 
         /**
@@ -282,9 +282,9 @@
          *
          * @return  self
          */ 
-        public function setGivenDate($id)
+        public function setGivenDate($givenDate)
         {
-                $this->id = $id;
+                $this->givenDate = $givenDate;
 
                 return $this;
         }

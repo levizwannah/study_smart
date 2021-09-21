@@ -18,10 +18,12 @@
  $task->setNumOfQuestions($numOfQuestions);
  $task->setDeadline($deadline);
  $rowId= $task->addTask();
+ 
  if($rowId == -1){
     return Response::SQE();
   }
-  exit(Response::makeResponse(
+  exit(Response
+  ::makeResponse(
     "OK",
     json_encode([
         "name" => $task->getName(),
@@ -33,6 +35,5 @@
         "message" => "Successfully added the task"
     ])
     ));
- return Response::OK();
  
 ?>
