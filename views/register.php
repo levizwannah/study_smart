@@ -36,7 +36,7 @@
         <input type="password" name="cpassword" id="c-password" class="text-sm text-gray-500 py-2 px-4 rounded-3xl border focus:outline-none">
     </div>
     <div class="flex flex-col mb-4">
-        <button type="button" id="" class="rounded-md text-white bg-green-500 w-full py-2 px-4 text-sm font-bold" onclick="register()">Sign Up</button>
+        <button type="button" class="rounded-md text-white bg-green-500 w-full py-2 px-4 text-sm font-bold" onclick="register()">Sign Up</button>
         <span class="mb-3">Already have an account? <a href="login.php" class="text-green-500 text-gray-500 hover:underline">Login</a></span>
     </div>
 </form>

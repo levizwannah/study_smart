@@ -51,7 +51,7 @@
         $submitButton = "<p></p>";
 
         if($task->getStatus() == Task::TASK_STATUSES[Task::STATUS_DONE]){
-            $submitButton = "<button class='bg-green-500 text-white rounded-md p-2' onclick='submit($taskId, $totalQuestions)'>Submit</button>";
+            $submitButton = "<button class='bg-green-500 text-white rounded-md p-2' onclick='submit($taskId, $totalQuestions)'>Submitted</button>";
         }
 
         $tasksHtml .= "<div id='task-$taskId' class='p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-md border-gray-300 hover:shadow-md flex-shrink-0 min-w-full mr-10'>

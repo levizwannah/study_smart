@@ -8,8 +8,8 @@
     //e = email test and s = signup
     $action = isset($_POST['action'])?$_POST['action']:"s";
     $email = isset($_POST['email'])?$_POST['email']:null;
-    $firstname = isset($_POST["first-name"])?$_POST["first-name"]: null;
-    $lastname = isset($_POST["last-name"])?$_POST["last-name"]: null;
+    $firstname = isset($_POST["firstname"])?$_POST["firstname"]: null;
+    $lastname = isset($_POST["lastname"])?$_POST["lastname"]: null;
     
     $newUser = new User();
     $newUser->setEmail($email);

@@ -25,5 +25,5 @@ function checkResult(response){
     }
 
     window.localStorage.setItem("user", response.message);
-    location.href = "home.php";
+    location.href = "tasks.php";
 }
