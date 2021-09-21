@@ -30,6 +30,10 @@ async function makeRequest(url = '', formData, callback = null, login=false) {
         user = JSON.parse(user);
     }
 
+    if(!user){
+        user = {token: "nothing"};
+    }
+
     // Default options are marked with *
     const response = await fetch(url, {
       method: 'POST',
