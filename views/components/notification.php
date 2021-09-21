@@ -1,0 +1,2 @@
+<div class="absolute w-full top-0 left-0 mt-14 p-4 bg-red-500 z-20 text-white transition-all" style="opacity: 0;" id="error-div"></div>
+<div class="absolute w-full top-0 left-0 mt-14 p-4 bg-green-500 text-white z-20 transition-all" id="success-div" style="opacity: 0;"></div>

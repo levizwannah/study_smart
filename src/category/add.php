@@ -1,16 +1,15 @@
 <?php
     require("master.inc.php");
 
-    $unitName = isset($_POST["unit-name"])? filter_var($_POST["unit-name"], FILTER_SANITIZE_STRING): exit(Response::UNE());
+    $categoryName = isset($_POST["category-name"])? filter_var($_POST["category-name"], FILTER_SANITIZE_STRING): exit(Response::UNE());
 
-    if(empty($unitName)){
+    if(empty($categoryName)){
         exit(Response::UNE());
     }
 
-    $newUnit = new Unit();
+    $newCategory = new Category();
 
-    $newUnit->setName($unitName);
-    $newUnit->setUserId($userId);
+    $newCategory->setName($categoryName);
 
     if($newUnit->exists()){
         exit(Response::makeResponse("UAEE", "The unit already exist"));

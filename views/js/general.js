@@ -1,7 +1,13 @@
 
 var error = document.getElementById("error-div");
 var successDiv = document.getElementById("success-div");
+var activeNav = `bg-gray-50 text-gray-800 border-indigo-500`;
 
+function setActiveNav(navElem){
+    navElem.classList.add(`bg-gray-50`);
+    navElem.classList.add(`text-gray-800`);
+    navElem.classList.add(`border-indigo-500`);
+}
 /**
  * 
  * @param {string} url - do add the ../src/ to the url, it will be added automatically 
@@ -10,7 +16,7 @@ var successDiv = document.getElementById("success-div");
  * @returns 
  */
 async function makeRequest(url = '', formData, callback = null, login=false) {
-    url = `../src/user/${url}`;
+    url = `../src/${url}`;
 
     let user = {token: "nothing"};
 
@@ -27,16 +33,18 @@ async function makeRequest(url = '', formData, callback = null, login=false) {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': user.token
+        'auth': user.token
       },
       body: formData
     });
 
-    if(callback){
-        callback(response.json);
-    }
 
-    return response.json();
+    if(callback){
+        response.json().then(callback);
+        return;
+    }
+    
+    return await response.json();
   }
 
 
@@ -111,7 +119,7 @@ function hideSuccess()
 }
 
 function getFullStorageLink(link){
-    return `../storage/${link}`;
+    return `../src/storage/${link}`;
 }
 //logout method
 function logout() {
@@ -134,3 +142,40 @@ function buildFormData(data){
 
     return formData;
 }
+
+function setUpNav(){
+    let user = JSON.parse(localStorage.getItem("user"));
+
+    document.getElementById("nav-profile-image").src = getFullStorageLink(`profile_images/${user.profileImage}`);
+    document.getElementById("nav-user-full-name").innerHTML = `${user.firstname} ${user.lastname}`;
+
+}
+
+const nav = document.querySelector('#main-nav');
+var navShown = false;
+const menuBars = document.getElementById("menu_bars");   
+
+window.addEventListener('click', hideNav);
+
+function hideNav(evt){
+    if(nav.contains(evt.target)){
+        nav.style.left = '0px';
+        navShown = true;
+        menuBars.classList.add("fa-times");
+        return;
+    }
+    
+    if((menuBars == evt.target || menuBars.contains(evt.target)) && !navShown){
+        nav.style.left = '0px';
+        menuBars.classList.add("fa-times");
+        navShown = true;
+        return true;
+    }
+    
+    nav.style.left = '-100%';
+    navShown = false;
+    menuBars.classList.remove("fa-times");
+    
+}
+
+setUpNav();

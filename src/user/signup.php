@@ -13,7 +13,9 @@
     
     $newUser = new User();
     $newUser->setEmail($email);
-
+    $newUser->setFirstName($firstname);
+    $newUser->setLastName($lastname);
+    
     switch($action){
         case "e":
             {

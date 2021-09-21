@@ -121,6 +121,13 @@
 
                     return $this;
         }
+        public function exists(){
+            if((new DbManager())->query(Category::CATEGORY_TABLE, [Category::CATEGORY_ID], "category_name = ?", [$this->name]) === false){
+                return false;
+            }
+
+            return true;
+        }
  }
 
 ?>

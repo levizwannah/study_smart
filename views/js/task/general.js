@@ -1,13 +1,21 @@
 let category = document.getElementById("category-id");
 let taskHolder = document.getElementById("task-holder");
+let taskStatus = document.getElementById("task-status");
+let statusDiv = document.getElementById("select-status");
+let unitsList = document.getElementById("units-select");
 
-/**
- * builds the html of a task to add it to the list
- * @param {Object} task 
- */
-function buildTask(task){
-    let html = ``;
-    return html;
+setActiveNav(document.getElementById(`c-${category.value}`));
+
+const colorsClasses = ["bg-red-200", "bg-yellow-200", "bg-blue-200", "bg-green-200"];
+
+function changeStatusColor(){
+    let pStatus = localStorage.getItem("cStatus");
+    if(pStatus){
+        statusDiv.classList.remove(colorsClasses[Number(pStatus)]);
+    }
+
+    statusDiv.classList.add(colorsClasses[taskStatus.value]);
+    localStorage.setItem("cStatus", `${taskStatus.value}`);
 }
 
 /**
@@ -71,4 +79,20 @@ function listTaskCallback(json){
         });
     }
 }
+
+/**
+ * Lists the units
+ */
+function listUnits() {
+    makeRequest(`task/units.php`, new FormData(), (json) =>{
+        if(json.status != "OK"){
+            showError(json.message);
+            return;
+        }
+        
+        unitListHolder.innerHTML = json.message;
+        return;
+    });
+}
+
 

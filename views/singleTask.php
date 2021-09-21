@@ -11,15 +11,21 @@
 <body>
 <?php
 //Header
-//include_once "./components/header.php";
+include_once "./components/header.php";
 //Sidebar
-  //include_once "./components/nav.php";
+include_once "./components/nav.php";
 ?>
 
-<div class="w-4/5 mx-auto">
-    <div class="flex flex-col sm:flex-row">
+<!-- For listing the unit -->
+<div class="flex items-center justify-center mt-16 bg-green-100 p-2 rounded-md mr-10 ml-10">
+    <p>Mathematics chemistry<p> <div class="ml-2 text-green-500"><i class="fas fa-caret-square-down"></i></div>
+</div>
+
+<div class="w-full mt-5 overflow-auto">
+
+    <div class="w-full flex flex-nowrap items-center px-10">
       <!-- Card View-->
-      <div class="sm:w-1/4 p-2">
+      <div class="p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-md border-gray-300 hover:shadow-md flex-shrink-0 mr-10">
         <div class="bg-white px-6 py-8 rounded-lg shadow-lg text-center">
             <!--Progress Bar-->
             <div class="relative pt-1">
@@ -45,11 +51,27 @@
 
             <!--Check box-->
             <div class="block border rounded-md">
-                <span class="text-gray-600">Tasks</span>
-                <div class="flex  space-x-4 m-4">
+                <span class="text-gray-600">Number of Tasks</span>
+                <div class="flex flex-wrap space-x-4 m-4 items-center justify-between">
                     <div>
                     <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox" checked>
+                        <input type="checkbox" class="" checked>
+                    </label>
+                    </div>
+                    <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" class="form-checkbox">
+                    </label>
+                    </div>
+                    <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" class="form-checkbox">
+                    </label>
+                    </div>
+
+                    <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" class="" checked>
                     </label>
                     </div>
                     <div>
@@ -80,17 +102,17 @@
 
             <!--Submit-->
             <!--Complete-->
-            <div class="flex mt-8 space-x-4">
+            <div class="flex mt-8 items-center justify-between">
                 <!--Delete-->
-                <i class="fas fa-trash-alt"></i>
+                <button class="bg-red-100 rounded-md p-1">
+                    <i class="fas fa-trash-alt block text-red-500"></i>
+                </button>
                 <!--Submit-->
-                <button>Submit</button>
+                <button class="bg-green-500 text-white rounded-md p-1">Submit</button>
             </div>
-
-
         </div>
-      </div>
+
     </div>
-  </div>
+</div>
 </body>
 </html>
