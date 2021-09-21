@@ -11,9 +11,9 @@
 <body>
 <?php
 //Header
-//include_once "./components/header.php";
+include_once "./components/header.php";
 //Sidebar
-  //include_once "./components/nav.php";
+include_once "./components/nav.php";
 ?>
 <div class="p-6 pb-4 space-y-6 text-gray-600">
     <!--No. of tasks-->
@@ -56,5 +56,15 @@
                 </div>
             </div>
 </div>
+<script>
+    document.querySelector('#page-title').innerHTML = document.getElementById(`c-<?php echo $categoryId ?>`).querySelectorAll('span')[1].innerHTML;
+</script>
+<?php
+    include('components/scripts.inc.php');
+?>
+<footer>
+  <script src='js/task/general.js'></script>
+  <script src='js/task/addTask.js'></script>
+</footer>
 </body>
 </html>

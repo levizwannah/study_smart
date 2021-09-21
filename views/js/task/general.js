@@ -46,7 +46,10 @@ function listTaskCallback(json){
     taskHolder.innerHTML = json.message;
     
     showAddTaskFormBtn = document.getElementById('show-add-task-form');
-
+    showAddTaskFormBtn.onclick = ()=>{
+        location.href("task-form.php");
+    }
+    
     //updating the percentages to appear on the ui
     let allTasks = taskHolder.children;
     if(allTasks.length == 1) return; //only the plus sign is on the screen
