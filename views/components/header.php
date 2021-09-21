@@ -1,6 +1,6 @@
 <div class="fixed top-0 left-0 w-full flex items-center justify-between h-16 p-4 z-50 bg-white">
     <div id="show-nav">
-    <i id="menu_bars" class="fas fa-bars"></i>
+    <i id="menu_bars" class="fas fa-bars text-l"></i>
     </div>
 
     <div class="">

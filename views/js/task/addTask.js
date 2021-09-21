@@ -4,7 +4,7 @@ var deadline= document.getElementById("date-due");
 var numOfQuestions= document.getElementById("number-Of-tasks");
     categoryId= document.getElementById("category");
 
-var unitId= document.getElementById("units-select");
+
 
 
 addTaskSubBtn.addEventListener("click", function(){

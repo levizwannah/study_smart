@@ -11,7 +11,7 @@ let selectUnitHolder = document.getElementById("select-units-holder");
 let categoryId = document.getElementById("category"); //for add task
 
 let selectedUnitId = 0;
-
+var unitId= document.getElementById("units-select");
 
 //setActiveNav(document.getElementById(`c-${category.value}`));
 
@@ -60,7 +60,8 @@ function listTaskCallback(json){
 
     showAddTaskFormBtn.onclick = ()=>{
         modal.style.display = "block";
-        categoryId = category.value;
+        document.getElementById("category").value = category.value;
+        document.getElementById("units-select").value = selectedUnitId;
     }
     
 
@@ -189,4 +190,4 @@ showList.addEventListener("click", function(){
     selectUnitHolder.style.display = "none";
 });
 
-
+listTasks();

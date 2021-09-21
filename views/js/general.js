@@ -21,7 +21,7 @@ async function makeRequest(url = '', formData, callback = null, login=false) {
     
     let user = {token: "nothing"};
 
-    if(!url.match(/.*\/src\/signup.php$/g)){
+    if(!url.match(/.*\/user\/signup.php$/g)){
         user = window.localStorage.getItem("user");
         if(!user && !login){ //to make a request during login
             location.href = "login.php";
