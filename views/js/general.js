@@ -132,7 +132,7 @@ function getFullStorageLink(link){
 function logout() {
     let response = makeRequest("user/logout.php",null);
     if (response.status=="OK") {
-        localStorage.removeItem('user');
+        localStorage.setItem('user', null);
         location.href = "login.php";
     }
 }
