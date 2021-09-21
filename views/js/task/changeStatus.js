@@ -1,5 +1,17 @@
 
+function submit(taskId, numberOfQuestions){
+    let task = document.querySelector(`#task-${taskId}`);
 
+    let checkboxes = task.querySelectorAll(`input[type=checkbox]`);
+    let totalChecked = [].filter.call(checkboxes, function (ch){
+        return ch.checked;
+    });
+
+    if(totalChecked.length == numberOfQuestions){
+      changeTaskStatus(taskId, 3, totalChecked.length);   
+    }
+    return;
+}
 /**
  * 
  * @param {int} taskId - task id 

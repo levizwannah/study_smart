@@ -64,9 +64,11 @@
                 $dbManager= new DbManager();
               
                 $columns= ["task_name","deadline","given_date","num_of_questions",Category::CAT_FOREIGN_KEY,Unit::UNIT_FOREIGN_KEY, User::USER_FOREIGN_KEY];
-                $values = [$this->name,$this->deadline,$this->numOfQuestions,$this->category,$this->unit, $this->userId];
+
+                $values = [$this->name, $this->deadline, $this->givenDate, $this->numOfQuestions, $this->category,$this->unit, $this->userId];
 
                 $rowId= $dbManager->insert(Task::TASK_TABLE, $columns, $values);
+                return $rowId;
         }
         /**
          * Update existing task

@@ -1,70 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <title>Study Smart</title>
-</head>
-<body>
-<?php
-//Header
-include_once "./components/header.php";
-//Sidebar
-include_once "./components/nav.php";
-?>
-<div class="p-6 pb-4 space-y-6 text-gray-600">
-    <!--No. of tasks-->
-    <div class="flex flex-row space-x-2">
-        <label class="font-medium" for="tasks">Number of tasks</label>
-        <input class="border rounded-md focus:outline-none" type="number" name="tasks" id="tasks">
-    </div>
-    <!--Category-->
-    <div class="flex flex-row space-x-2">
-        <label class="font-medium" for="tasks">Category</label>
-        <select class="border rounded-md focus:outline-none" name="category" id="category">
-            <option value="1">Homework</option>
-            <option value="2">Assignment</option>
-            <option value="3">Project</option>
-            <option value="4">Takeaway CAT</option>
-        </select>
-    </div>
-    <!--No. of tasks-->
-    <select class='border rounded-md focus:outline-none' name='category' id='category'>
+
+<div id="myModal" class="modal">
+  <div class="modal-content mt-16 rounded-md p-4 space-y-6 text-gray-600">
+
+        <!--task name-->
+        <div class="flex flex-row items-center justify-between">
+            <label class="font-medium" for="task-name">Title</label>
+            <input class="border rounded-md focus:outline-none p-2" type="text" name="task-name" id="task-name" value="">
+        </div>
+        <!--No. of tasks-->
+        <div class="flex flex-row items-center justify-between">
+            <label class="font-medium p-2" for="tasks">Number of tasks</label>
+            <input class="border rounded-md focus:outline-none p-2 w-1/4" type="number" min="1" name="number-Of-tasks" id="number-Of-tasks">
+        </div>
+        <!--Category-->
+        <div class="flex flex-row items-center justify-between">
+            <label class="font-medium" for="tasks">Category</label>
+            <select class="border rounded-md focus:outline-none p-2" name="category" id="category">
+                <option value="1">Assignments</option>
+                <option value="2">Projects</option>
+                <option value="3">Groupworks</option>
+            </select>
+        </div>
+        <!--No. of tasks-->
+        <div class="flex flex-row items-center justify-between">
+            <label class="font-medium" for="tasks">Units</label>
+            <select class='border rounded-md focus:outline-none p-2' name='units-select' id='units-select'>
+
+            </select>
+        </div>
+        <div class="flex justify-between">
+        <div class="flex flex-col flex-shrink w-1/3">
+            <label class="font-medium" for="dateGiven">Date Given</label>
+            <input class="border focus:outline-none p-2"type="date" name="date-given" id="date-given">
+        </div>
+        <!--Date Due-->
+        <div class="flex flex-col flex-shrink w-1/3">
+            <label class="font-medium" for="dateDue">Date Due</label>
+            <input type="date" name="date-due" id="date-due" class="border focus:outline-none p-2 w-full">
+        </div>
+        </div>
         
-    </select>
-    <div class="flex flex-row space-x-2">
-        <label class="font-medium" for="tasks">Number of tasks</label>
-        <input class="border rounded-md focus:outline-none" type="number" name="tasks" id="tasks">
-    </div>
-    <!--Date given-->
-    <div class="flex flex-col">
-        <label class="font-medium" for="dateGiven">Date Given</label>
-        <input class="border:none focus:outline-none"type="date" name="dateGiven" id="dateGiven">
-    </div>
-    <!--Date Due-->
-    <div class="flex flex-col">
-        <label class="font-medium" for="dateDue">Date Due</label>
-        <input type="date" name="dateDue" id="dateDue">
-    </div>
-    <!--Button-->
-    <div class="select-none rounded-md flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl p-6 mt-3 border-gray-300 hover:shadow-2xl">
-                <div class="ml-24 w-1/4 text-wrap items-center flex flex-col text-white text-bold rounded-md bg-green-500 justify-center items-center mr-10 p-2">
-                    <p>Add</p>
-                </div>
-            </div>
+        <!--Button-->
+        <div class="w-full flex justify-between items-center p-4" >
+            <button id="close" class="text-white text-bold rounded-md bg-red-500 p-2 w-1/3">
+                <i class="fas fa-times"></i>
+            </button>
+            <button id="add-task-submit-btn" class=" text-white text-bold rounded-md bg-green-500 p-2 w-1/3">
+                Add
+            </button>
+        </div>
+
+  </div>
+  <!-- <div class="modal-footer">
+    <h3>Modal Footer</h3>
+  </div> -->
 </div>
-<script>
-    document.querySelector('#page-title').innerHTML = document.getElementById(`c-<?php echo $categoryId ?>`).querySelectorAll('span')[1].innerHTML;
-</script>
-<?php
-    include('components/scripts.inc.php');
-?>
-<footer>
-  <script src='js/task/general.js'></script>
-  <script src='js/task/addTask.js'></script>
-</footer>
-</body>
-</html>

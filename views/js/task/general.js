@@ -2,14 +2,18 @@ let category = document.getElementById("category-id");
 let taskHolder = document.getElementById("tasks-holder");
 let taskStatus = document.getElementById("task-status");
 let statusDiv = document.getElementById("select-status");
-let unitsList = document.getElementById("units-select");
+let unitsList = document.getElementById("units-select-1");
 let showList = document.getElementById("show-units-list");
 let selectedUnitName = document.getElementById("selected-unit-name");
 let showAddTaskFormBtn;
+let addTaskSubBtn = document.getElementById("add-task-submit-btn");
+let selectUnitHolder = document.getElementById("select-units-holder");
+let categoryId = document.getElementById("category"); //for add task
+
 let selectedUnitId = 0;
 
 
-setActiveNav(document.getElementById(`c-${category.value}`));
+//setActiveNav(document.getElementById(`c-${category.value}`));
 
 const colorsClasses = ["bg-red-200", "bg-yellow-200", "bg-blue-200", "bg-green-200"];
 
@@ -53,9 +57,12 @@ function listTaskCallback(json){
     taskHolder.innerHTML = json.message;
     
     showAddTaskFormBtn = document.getElementById('show-add-task-form');
+
     showAddTaskFormBtn.onclick = ()=>{
-        location.href = "task-form.php";
+        modal.style.display = "block";
+        categoryId = category.value;
     }
+    
 
     //updating the percentages to appear on the ui
     let allTasks = taskHolder.children;
@@ -105,20 +112,6 @@ function listTaskCallback(json){
     }
 }
 
-/**
- * Lists the units
- */
-function listUnits() {
-    makeRequest(`task/units.php`, new FormData(), (json) =>{
-        if(json.status != "OK"){
-            showError(json.message);
-            return;
-        }
-        
-        unitListHolder.innerHTML = json.message;
-        return;
-    });
-}
 
 /**
  * This function populates any select list for the units
@@ -134,6 +127,7 @@ async function populateUnitsList(unitSelectElement = unitsList, value = null){
     }
 
     unitSelectElement.innerHTML = json.message;
+    document.getElementById("units-select").innerHTML = json.message;
     if(value){
         unitSelectElement.value = value;
         selectedUnitId = value;
@@ -145,7 +139,7 @@ async function populateUnitsList(unitSelectElement = unitsList, value = null){
 //populate the list
 populateUnitsList(unitsList, localStorage.getItem("selectedUnit")).then((boolean) => {
     if(!boolean){
-        showError("Cold not list your tasks, an error occurred");
+        showError("Could not list your tasks, an error occurred");
         return;
     }
 
@@ -173,6 +167,7 @@ unitsList.addEventListener("change", function(){
 //
 
 //listening for task change
+
 taskStatus.addEventListener("change", function(){
     changeStatusColor();
     listTasks();
@@ -180,16 +175,15 @@ taskStatus.addEventListener("change", function(){
 
 //show the list
 showList.addEventListener("click", function(){
-    console.log("showing units list");
+    //console.log("showing units list");
 
-    if(unitsList.parentElement.style.display == "none"){
-        unitsList.parentElement.style.display = "";
+    if(selectUnitHolder.style.display == "none"){
+        selectUnitHolder.style.display = "";
+        unitsList.click();
         return;
     }
 
-    unitsList.parentElement.style.display = "none";
+    selectUnitHolder.style.display = "none";
 });
-
-
 
 

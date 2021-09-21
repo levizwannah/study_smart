@@ -143,13 +143,13 @@ function buildFormData(data){
     return formData;
 }
 
-function setUpNav(){
-    let user = JSON.parse(localStorage.getItem("user"));
+// function setUpNav(){
+//     let user = JSON.parse(localStorage.getItem("user"));
 
-    document.getElementById("nav-profile-image").src = getFullStorageLink(`profile_images/${user.profileImage}`);
-    document.getElementById("nav-user-full-name").innerHTML = `${user.firstname} ${user.lastname}`;
+//     document.getElementById("nav-profile-image").src = getFullStorageLink(`profile_images/${user.profileImage}`);
+//     document.getElementById("nav-user-full-name").innerHTML = `${user.firstname} ${user.lastname}`;
 
-}
+// }
 
 const nav = document.querySelector('#main-nav');
 var navShown = false;
@@ -178,4 +178,4 @@ function hideNav(evt){
     
 }
 
-setUpNav();
+//setUpNav();
