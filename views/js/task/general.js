@@ -52,6 +52,7 @@ function listTasks(){
 function listTaskCallback(json){
     if(json.status != "OK"){
         showError(json.message);
+        return;
     }
 
     taskHolder.innerHTML = json.message;

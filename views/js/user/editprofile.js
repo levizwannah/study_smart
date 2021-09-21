@@ -76,7 +76,7 @@ function resetPassword(){
         showError("To change your password, enter the old password");
         return;
     }
-    if(oldPassword.value != cPassword.value){
+    if(newPassword.value != cPassword.value){
         showError("The passwords do not match");
         return;
     }
