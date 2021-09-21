@@ -151,6 +151,29 @@
                 return $code;
             }
 
+            /**
+             * this function returns date in a format  today @ xxx or yesterday @xxx or M, d y @ xxx where xxx is the exact time
+             */
+
+            public static function returnDate($timestamp) {
+                if(is_string($timestamp)){
+                    $timestamp = strtotime($timestamp);
+                }
+                $date = date('d/m/Y', $timestamp);
+
+                if($date == date('d/m/Y')) {
+                $date = 'Today';
+                } 
+                else if($date == date('d/m/Y',time() - (24 * 60 * 60))) {
+                $date = 'Yesterday';
+                }
+                else{
+                    $date = date("D,  M. d, Y ", $timestamp);
+                }
+                
+                return "$date";
+            }
+
     }
 
 ?>

@@ -1,9 +1,9 @@
-let taskName= document.getElementById("taskName");
-let numOfQuestions= document.getElementById("numOfQuestions");
-let categoryId= document.getElementById("categoryId");
-let unitId= document.getElementById("unitId");
-let userId= document.getElementById("userId");
-let taskId= document.getElementById("taskId");//hypothesis
+    taskName = document.getElementById("taskName");
+    numOfQuestions= document.getElementById("numOfQuestions");
+    categoryId= document.getElementById("categoryId");
+    unitId= document.getElementById("unitId");
+    userId= document.getElementById("userId");
+    taskId= document.getElementById("taskId");//hypothesis
 
 function editTask() {
     let formData= new FormData();

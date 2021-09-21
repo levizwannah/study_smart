@@ -1,8 +1,11 @@
 let category = document.getElementById("category-id");
-let taskHolder = document.getElementById("task-holder");
+let taskHolder = document.getElementById("tasks-holder");
 let taskStatus = document.getElementById("task-status");
 let statusDiv = document.getElementById("select-status");
 let unitsList = document.getElementById("units-select");
+let showList = document.getElementById("show-units-list");
+let selectedUnitName = document.getElementById("selected-unit-name");
+let showAddTaskFormBtn;
 
 setActiveNav(document.getElementById(`c-${category.value}`));
 
@@ -22,10 +25,10 @@ function changeStatusColor(){
  * 
  * @param {int} status 
  */
-function listTasks(status){
+function listTasks(){
     let formData = buildFormData({
         "category-id": category.value,
-        "task-status": status
+        "task-status": taskStatus.value
     });
 
     makeRequest(`task/tasks.php`, formData, listTaskCallback);
@@ -42,9 +45,13 @@ function listTaskCallback(json){
 
     taskHolder.innerHTML = json.message;
     
+    showAddTaskFormBtn = document.getElementById('show-add-task-form');
+
     //updating the percentages to appear on the ui
     let allTasks = taskHolder.children;
-    for(i = 0; i < allTasks.length; i++){
+    if(allTasks.length == 1) return; //only the plus sign is on the screen
+
+    for(i = 0; i < (allTasks.length - 1); i++){
         let task = allTasks[i];
         let actuatId = task.id.split("-");
         let tQuestions = task.querySelector(`#total-questions-t-${actuatId}`);
@@ -94,5 +101,73 @@ function listUnits() {
         return;
     });
 }
+
+/**
+ * This function populates any select list for the units
+ * @param {HTMLElement} unitSelectElement 
+ * @param {int} value 
+ */
+async function populateUnitsList(unitSelectElement = unitsList, value = null){
+    const json = await makeRequest(`task/units.php`, buildFormData({}));
+
+    if(json.status != "OK"){
+        showError(json.message);
+        return false;
+    }
+
+    unitSelectElement.innerHTML = json.message;
+    if(value){
+        unitSelectElement.value = value;
+    }
+
+    return true;
+}
+
+//populate the list
+populateUnitsList(unitsList, localStorage.getItem("selectedUnit")).then((boolean) => {
+    if(!boolean){
+        showError("Cold not list your tasks, an error occurred");
+        return;
+    }
+
+    //check if the person has added a unit
+    if(unitsList.children.length < 1){
+        showError("You haven't added any unit yet. please do so");
+        setTimeout(() => {
+            location.href = "units.php";
+        }, 3000);
+    }
+    selectedUnitName.innerHTML = unitsList.options[unitsList.options.selectedIndex].innerHTML;
+    listTasks();
+});
+
+//setting the units list on selected listener
+unitsList.addEventListener("change", function(){
+    localStorage.setItem("selectedUnit", `${unitsList.value}`);
+    selectedUnitName.innerHTML = unitsList.options[unitsList.options.selectedIndex].innerHTML;
+    listTasks();
+    showList.click();
+});
+
+//
+
+//listening for task change
+taskStatus.addEventListener("change", function(){
+    changeStatusColor();
+    listTasks();
+});
+
+//show the list
+showList.addEventListener("click", function(){
+    console.log("showing units list");
+
+    if(unitsList.parentElement.style.display == "none"){
+        unitsList.parentElement.style.display = "";
+        return;
+    }
+
+    unitsList.parentElement.style.display = "none";
+});
+
 
 

@@ -1,4 +1,4 @@
-let taskName= document.getElementById("taskName");
+let taskName = document.getElementById("taskName");
 let givendate= document.getElementById("givendate");
 let deadline= document.getElementById("deadline");
 let numOfQuestions= document.getElementById("numOfQuestions");
