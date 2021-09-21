@@ -10,37 +10,47 @@
 </head>
 <body>
 <?php
-//Header
-//include_once "./components/header.php";
-//Sidebar
-//include_once "./components/nav.php";
+  include_once "./components/header.php";
+  include_once "./components/nav.php";
 ?>
 <!--Sign Up-->
-<form class="p-6 pb-4 space-y-6 text-gray-600" method="POST">
+<form class="p-6 pb-4 space-y-6 text-gray-600 mt-16" method="POST">
     <div class="flex flex-col mb-6">
-        <label for="firstname" class="font-medium">First Name</label>
-        <input type="text" name="firstname" id="" class="text-sm text-gray-500 py-2 px-4 rounded-3xl border focus:outline-none">
+        <label for="firstname" class="font-medium" >First Name</label>
+        <input type="text" name="firstname" id="firstname" class="text-sm text-gray-500 py-2 px-4 rounded-3xl border focus:outline-none">
     </div>
     <div class="flex flex-col mb-6">
         <label for="lastname" class="font-medium">Last Name</label>
-        <input type="text" name="lastname" id="" class="text-sm text-gray-500 py-2 px-4 rounded-3xl border focus:outline-none">
+        <input type="text" name="lastname" id="lastname" class="text-sm text-gray-500 py-2 px-4 rounded-3xl border focus:outline-none">
     </div>
     <div class="flex flex-col mb-6">
         <label for="email" class="font-medium">Email</label>
-        <input type="email" name="email" id="" class="text-sm text-gray-500 py-2 px-4 rounded-3xl border focus:outline-none">
+        <input type="email" name="email" id="email" class="text-sm text-gray-500 py-2 px-4 rounded-3xl border focus:outline-none">
     </div>
     <div class="flex flex-col mb-6">
         <label for="password" class="font-medium">Password</label>
-        <input type="password" name="password" id="" class="text-sm text-gray-500 py-2 px-4 rounded-3xl border focus:outline-none">
+        <input type="password" name="password" id="password" class="text-sm text-gray-500 py-2 px-4 rounded-3xl border focus:outline-none">
     </div>
     <div class="flex flex-col mb-6">
         <label for="cpassword" class="font-medium">Confirm Password</label>
-        <input type="password" name="cpassword" id="" class="text-sm text-gray-500 py-2 px-4 rounded-3xl border focus:outline-none">
+        <input type="password" name="cpassword" id="c-password" class="text-sm text-gray-500 py-2 px-4 rounded-3xl border focus:outline-none">
     </div>
     <div class="flex flex-col mb-4">
-        <button type="button" id="" class="rounded-md text-white bg-green-500 w-full py-2 px-4 text-sm font-bold">Sign Up</button>
+        <button type="button" id="" class="rounded-md text-white bg-green-500 w-full py-2 px-4 text-sm font-bold" onclick="register()">Sign Up</button>
         <span class="mb-3">Already have an account? <a href="login.php" class="text-green-500 text-gray-500 hover:underline">Login</a></span>
     </div>
 </form>
+
+<script>
+    document.getElementById("menu_bars").style.visibility = "hidden";
+    document.getElementById("edit-profile").style.visibility = "hidden";
+    document.getElementById("page-title").innerHTML = "Study_Smart: Register"
+</script>
+<?php
+    include('components/scripts.inc.php');
+?>
+<footer>
+  <script src='js/user/signup.js'></script>
+</footer>
 </body>
 </html>

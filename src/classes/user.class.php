@@ -169,8 +169,15 @@
 
                     //remove the old tokens
                     $sessionToken = bin2hex(openssl_random_pseudo_bytes(255));
+
+                    $sessionId = $dbManager->insert(
+                        "session",
+                        ["session_token", User::USER_FOREIGN_KEY],
+                        [$sessionToken, $this->id]
+                    );
+
                     if(
-                        $dbManager->update("session", "session_token = ?", [$sessionToken], "userId = ?",[$this->id])
+                        $sessionId > 0
                         ){
                         
                             //response

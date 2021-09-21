@@ -53,10 +53,8 @@
 <body>
 <?php
 
- $categoryId = (int)$_GET['c'];
- if($categoryId < 1){
-     $categoryId = 1;
- }
+
+ $categoryId = (isset($_GET['c']))? (int)$_GET['c'] : 1;
 
 //Header
 include_once './components/header.php';

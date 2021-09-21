@@ -7,7 +7,7 @@
     <span class="font-semibold text-xl text-gray-600 tracking-tight" id="page-title">Study Smart</span>
     </div>
 
-    <div class="" onclick="location.href='editProfile.php'">
+    <div id="edit-profile" class="" onclick="location.href='edit-profile.php'">
     <i class="fas fa-user"></i>
     </div>
     

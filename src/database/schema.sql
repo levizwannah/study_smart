@@ -11,7 +11,6 @@ CREATE TABLE `user` (
   `lastname` varchar(255) ,
   `email` varchar(255) not null,
   `profile_image` varchar(255),
-  `user_type` enum ("rider", "driver", "admin"),
   `ev_code` int default 0,
   `user_password` varchar(256) not null,
   `email_verified` tinyint(1) default 0,

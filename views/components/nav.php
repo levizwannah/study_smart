@@ -9,7 +9,7 @@
           </li>
           <!-- View Profile Picture-->
           <li class="flex items-center hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-b hover:border-indigo-500 p-6">
-             <img id = "nav-profile-image" class="relative w-24 h-24 rounded-full border border-gray-100 shadow-sm" src="https://randomuser.me/api/portraits/women/81.jpg" alt="User Image" onclick="location.href='editProfile.php'"/> <span id="nav-user-full-name"> Levi Zwannah </span>
+             <img id = "nav-profile-image" class="relative w-24 h-24 rounded-full border border-gray-100 shadow-sm" src="https://randomuser.me/api/portraits/women/81.jpg" alt="User Image" onclick="location.href='edit-profile.php'"/> <span id="nav-user-full-name"> Levi Zwannah </span>
                 <!-- <span><i class="fas fa-camera"></i></span> -->
           </li>
           <!--Assignments-->
@@ -58,7 +58,7 @@
           </li>
           <!--Edit Profile-->
           <li>
-            <a id="edit-profile-nav-link" href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+            <a id="edit-profile-nav-link" href="edit-profile.php" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
               <span class="inline-flex justify-center items-center ml-4">
                 <i class="far fa-user"></i>
               </span>
@@ -73,7 +73,7 @@
           </li>
         
           <li>
-            <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+            <a onclick="logout()" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
               <span class="inline-flex justify-center items-center ml-4">
                 <i class="fas fa-sign-out-alt"></i>
               </span>

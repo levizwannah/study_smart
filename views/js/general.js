@@ -18,6 +18,7 @@ function setActiveNav(navElem){
 async function makeRequest(url = '', formData, callback = null, login=false) {
     url = `../src/${url}`;
 
+    
     let user = {token: "nothing"};
 
     if(!url.match(/.*\/src\/signup.php$/g)){
@@ -38,13 +39,15 @@ async function makeRequest(url = '', formData, callback = null, login=false) {
       body: formData
     });
 
+    const json = await response.json();
+    handleError(json);
 
     if(callback){
-        response.json().then(callback);
+        callback(json);
         return;
     }
     
-    return await response.json();
+    return json;
   }
 
 
@@ -123,9 +126,10 @@ function getFullStorageLink(link){
 }
 //logout method
 function logout() {
-    let response=makeRequest("user/logout.php",null);
-    if (response=="OK") {
+    let response = makeRequest("user/logout.php",null);
+    if (response.status=="OK") {
         localStorage.removeItem('user');
+        location.href = "login.php";
     }
 }
 
@@ -143,13 +147,15 @@ function buildFormData(data){
     return formData;
 }
 
-// function setUpNav(){
-//     let user = JSON.parse(localStorage.getItem("user"));
+function setUpNav(){
+    let user = JSON.parse(localStorage.getItem("user"));
 
-//     document.getElementById("nav-profile-image").src = getFullStorageLink(`profile_images/${user.profileImage}`);
-//     document.getElementById("nav-user-full-name").innerHTML = `${user.firstname} ${user.lastname}`;
+    if(user){
+        document.getElementById("nav-profile-image").src = getFullStorageLink(`${user.profileImage}`);
+        document.getElementById("nav-user-full-name").innerHTML = `${user.firstname} ${user.lastname}`;
+    }
 
-// }
+}
 
 const nav = document.querySelector('#main-nav');
 var navShown = false;
@@ -178,4 +184,23 @@ function hideNav(evt){
     
 }
 
-//setUpNav();
+setUpNav();
+
+function handleError(json){
+    switch(json.status){
+        case "NLIE":
+            {
+                location.href = "login.php";
+                break;
+            }
+        case "ALIE":
+            {
+                location.href = "tasks.php";
+                break;
+            }
+        default:
+            {
+
+            }
+    }
+}
