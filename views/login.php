@@ -28,7 +28,9 @@
     </div>
 
     <div class="flex flex-col mb-4">
-        <button type="button" id="login-btn" class="rounded-md text-white bg-green-500 w-full py-2 px-4 text-xs font-bold">Login</button>
+        <button type="button" id="" class="rounded-md text-white bg-green-500 w-full py-2 px-4 text-sm font-bold">Login</button>
+        <span class="mb-3">Don't have an account?<a href="register.php" class="text-green-500 text-gray-500 hover:underline">Sign up</a></span>
+        <a href="" class="text-green-500 hover:underline">Forgot password?</a>
     </div>
 </form>
 </body>
