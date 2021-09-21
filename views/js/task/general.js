@@ -89,7 +89,7 @@ function listUnits() {
             showError(json.message);
             return;
         }
-
+        
         unitListHolder.innerHTML = json.message;
         return;
     });

@@ -25,13 +25,16 @@
     <div class="flex flex-row space-x-2">
         <label class="font-medium" for="tasks">Category</label>
         <select class="border rounded-md focus:outline-none" name="category" id="category">
-            <option value="Homework">Homework</option>
-            <option value="Homework">Assignment</option>
-            <option value="Homework">Project</option>
-            <option value="Homework">Takeaway CAT</option>
+            <option value="1">Homework</option>
+            <option value="2">Assignment</option>
+            <option value="3">Project</option>
+            <option value="4">Takeaway CAT</option>
         </select>
     </div>
     <!--No. of tasks-->
+    <select class='border rounded-md focus:outline-none' name='category' id='category'>
+        
+    </select>
     <div class="flex flex-row space-x-2">
         <label class="font-medium" for="tasks">Number of tasks</label>
         <input class="border rounded-md focus:outline-none" type="number" name="tasks" id="tasks">
