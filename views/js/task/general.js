@@ -4,7 +4,7 @@ let taskStatus = document.getElementById("task-status");
 let statusDiv = document.getElementById("select-status");
 let unitsList = document.getElementById("units-select");
 
-setActiveNav(document.getElementById(`c-${category.value}`));
+//setActiveNav(document.getElementById(`c-${category.value}`));
 
 const colorsClasses = ["bg-red-200", "bg-yellow-200", "bg-blue-200", "bg-green-200"];
 
@@ -84,15 +84,21 @@ function listTaskCallback(json){
  * Lists the units
  */
 function listUnits() {
+
+console.log("called");
     makeRequest(`task/units.php`, new FormData(), (json) =>{
         if(json.status != "OK"){
             showError(json.message);
+            console.log("message: "+json.message);
             return;
         }
-        
-        unitListHolder.innerHTML = json.message;
+console.log("message: "+json.message);
+        unitsList.innerHTML = json.message;
         return;
     });
 }
 
+if(unitsList!=null){
+    listUnits();
+}
 

@@ -8,7 +8,12 @@
  $categoryId = isset($_POST['categoryId'])? $_POST['categoryId']:null;
  $unitId = isset($_POST['unitId'])? $_POST['unitId']:null;
  $givenDate = isset($_POST['givenDate'])? $_POST['givenDate']:null;
- $userId = isset($_POST['userId'])? $_POST['userId']:null;
+
+
+if ($taskName=="" || $deadline=="" || $numOfQuestions=="" || $categoryId=="" || $unitId=="" ||
+     $givenDate=="") {
+     exit(Response::makeResponse("RFE", "All fields are required"));
+}
 
  $task = new Task();
  $task->setUserId($userId);
@@ -16,10 +21,12 @@
  $task->setUnit($unitId);
  $task->setCategory($categoryId);
  $task->setNumOfQuestions($numOfQuestions);
+ $task->setGivenDate($givenDate);
  $task->setDeadline($deadline);
  $rowId= $task->addTask();
+
  if($rowId == -1){
-    return Response::SQE();
+    exit(Response::SQE());
   }
   exit(Response::makeResponse(
     "OK",
@@ -33,6 +40,4 @@
         "message" => "Successfully added the task"
     ])
     ));
- return Response::OK();
- 
-?>
+    ?>
