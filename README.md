@@ -1,5 +1,13 @@
 # study_smart
-A system to help students organize tasks
+A system to help students organize tasks.
+
+Currently the system helps students only remember what they are to do. this makes it have less info for each task because the assumption is that a student knows what they are to do, they just need to be reminded.  
+We think that a student doesn't need to rewrite the task, if they want to, there are other tools out there. This one is to just keep them reminded. 
+
+# functionalities needed
+- Sharing: Students should be able to share assignments with each other, with every maintaining their own version if necessary.
+- Class creation: In school, there are classes which have similar assignments. When someone adds an assignment or group work to a class, it should be seen by everyone. 
+- 
 
 # Instructions
 1. clone the repo.
