@@ -1,5 +1,5 @@
 # The Wiki
-check the wiki ./wiki
+check the wiki https://github.com/levizwannah/study_smart/wiki
 # study_smart
 A system to help students organize tasks.
 
