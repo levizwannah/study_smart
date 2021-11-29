@@ -9,7 +9,9 @@ We think that a student doesn't need to rewrite the task, if they want to, there
 # functionalities needed
 - Sharing: Students should be able to share assignments with each other, with everyone maintaining their own version of the tasks, if necessary.
 - Class creation: In school, there are classes which have similar assignments. When someone adds an assignment or group work to a class, it should be seen by everyone. 
-- 
+- PWA
+- Android webview implementation
+- Swift webview implementation
 
 # Instructions
 1. fork the repo.
