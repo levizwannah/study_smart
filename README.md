@@ -7,12 +7,12 @@ Currently the system helps students only remember what they are to do. this make
 We think that a student doesn't need to rewrite the task, if they want to, there are other tools out there. This one is to just keep them reminded. 
 
 # functionalities needed
-- Sharing: Students should be able to share assignments with each other, with every maintaining their own version if necessary.
+- Sharing: Students should be able to share assignments with each other, with everyone maintaining their own version of the tasks, if necessary.
 - Class creation: In school, there are classes which have similar assignments. When someone adds an assignment or group work to a class, it should be seen by everyone. 
 - 
 
 # Instructions
-1. clone the repo.
+1. fork the repo.
 2. in the root directory, run `npm install`
 3. after, run `composer install`
 4. Make sure your server is turned on
