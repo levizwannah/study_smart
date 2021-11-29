@@ -25,5 +25,8 @@ We think that a student doesn't need to rewrite the task, if they want to, there
 # exposing localhost
 use ngrok from ngrok.com
 
-#questions
+# questions
 please open an issue
+
+# Directory Structure
+
